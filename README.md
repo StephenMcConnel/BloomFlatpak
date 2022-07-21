@@ -7,7 +7,7 @@ This directory holds flatpak packaging specification files and tools.
 
 ### Dependencies
 
-Flathub repo, FW flatpak manifest, tools:
+Flathub repo, Bloom flatpak manifest, tools:
 
 ```bash
 sudo add-apt-repository ppa:flatpak/stable
