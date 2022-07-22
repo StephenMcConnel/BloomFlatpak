@@ -18,6 +18,7 @@ flatpak --user install flathub org.gnome.Sdk//41
 flatpak --user install flathub org.gnome.Platform//41
 flatpak --user install flathub org.freedesktop.Sdk.Extension.mono6//21.08
 flatpak --user install flathub org.freedesktop.Sdk.Extension.node16//21.08
+flatpak --user install flathub org.freedesktop.Platform.ffmpeg-full//21.08
 flatpak update
 ```
 
@@ -36,7 +37,7 @@ Build and install the flatpak package:
 ./build
 ```
 
-Note that your first build will take time to download and build all
+Note that your first build will take a long time to download and build all
 dependencies. Subsequent builds benefit from caching.
 
 ## Testing
@@ -53,28 +54,26 @@ Open a shell inside the Bloom flatpak instead of running Bloom:
 ./shell
 ```
 
-## Validate appdata [what is this -- check with Mark]
+## Validate appdata
 
 ```bash
 flatpak install flathub org.freedesktop.appstream-glib
-flatpak run org.freedesktop.appstream-glib validate \
-  ../DistFiles/Linux/org.sil.Bloom.metainfo.xml
+flatpak run org.freedesktop.appstream-glib validate extra/org.sil.Bloom.metainfo.xml
 ```
 
 ## Clean up
 
 You can safely delete the following directories, although it will make the next
-package-build take longer:
+package-build take longer (possibly 3 hours longer!):
 
 ```
-node_modules
-local-repo
 .flatpak-builder
 build-dir
+../flatpak/local-repo
 ~/.cache/flatpak-build-logs
 ```
 
-## Search github for flatpak build using msbuild (or any other item by changing "msbuild")
+## Search github for flatpak build using component XXX
 ```
-https://github.com/search?q=org%3Aflathub+msbuild&type=code
+https://github.com/search?q=org%3Aflathub+XXX&type=code
 ```

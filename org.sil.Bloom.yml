@@ -66,8 +66,6 @@ finish-args:
     # debugging verbosely.  I need all the help I can get!
     - -vv
 command: bloom
-rename-desktop-file: bloom.desktop
-rename-icon: bloom
 
 modules:
     - name: BloomDesktop
@@ -126,12 +124,12 @@ modules:
               install -d ${INSTALLATION_PREFIX}/share/pixmaps
               install -d ${INSTALLATION_PREFIX}/share/icons/hicolor/48x48/mimetypes/
               install -d ${INSTALLATION_PREFIX}/share/icons/hicolor/scalable/mimetypes/
-              install -m 644 debian/bloom.png ${INSTALLATION_PREFIX}/share/pixmaps/bloom.png
-              install -m 644 debian/bloom.svg ${INSTALLATION_PREFIX}/share/pixmaps/bloom.svg
-              install -m 644 debian/bloom.png ${INSTALLATION_PREFIX}/share/icons/hicolor/48x48/mimetypes/bloom.png
-              install -m 644 debian/bloom.svg ${INSTALLATION_PREFIX}/share/icons/hicolor/scalable/mimetypes/bloom.svg
+              install -m 644 debian/bloom.png ${INSTALLATION_PREFIX}/share/pixmaps/org.sil.Bloom.png
+              install -m 644 debian/bloom.svg ${INSTALLATION_PREFIX}/share/pixmaps/org.sil.Bloom.svg
+              install -m 644 debian/bloom.png ${INSTALLATION_PREFIX}/share/icons/hicolor/48x48/mimetypes/org.sil.Bloom.png
+              install -m 644 debian/bloom.svg ${INSTALLATION_PREFIX}/share/icons/hicolor/scalable/mimetypes/org.sil.Bloom.svg
               install -d ${INSTALLATION_PREFIX}/share/applications
-              desktop-file-install --dir ${INSTALLATION_PREFIX}/share/applications debian/bloom.desktop
+              desktop-file-install --dir ${INSTALLATION_PREFIX}/share/applications ../local-extra/org.sil.Bloom.desktop
               # Install icon for our mime type so that it shows up as icon for a bloompack
               install -m 644 debian/BloomPack.png ${INSTALLATION_PREFIX}/share/icons/hicolor/48x48/mimetypes/application-bloom.png
               install -m 644 debian/BloomPack.svg ${INSTALLATION_PREFIX}/share/icons/hicolor/scalable/mimetypes/application-bloom.svg
@@ -142,10 +140,8 @@ modules:
               install -m 644 debian/JoinBloomTC.png ${INSTALLATION_PREFIX}/share/icons/hicolor/48x48/mimetypes/application-bloom-join-team.png
               install -m 644 debian/JoinBloomTC.svg ${INSTALLATION_PREFIX}/share/icons/hicolor/scalable/mimetypes/application-bloom-join-team.svg
               # Add AppStream metadata file
-              # REVIEW: the specs are not completely clear where the file should go: /usr/share/appdata,
-              # /usr/share/app-info/xmls, or /usr/share/metainfo.
-              install -d ${INSTALLATION_PREFIX}/share/appdata
-              install -m 644 debian/bloom.appdata.xml ${INSTALLATION_PREFIX}/share/appdata/bloom.appdata.xml
+              install -d ${INSTALLATION_PREFIX}/share/metainfo
+              install -m 644 ../local-extra/org.sil.Bloom.metainfo.xml ${INSTALLATION_PREFIX}/share/metainfo
               # Remove unwanted files
               cd ${BLOOMLIB} && rm -rf AxInterop* BloomTests* Interop* Moq* nunit* NUnit* AndikaNewBasic ffmpeg ghostscript
               find ${BLOOMLIB} -name '*.map' -print0 | xargs -0 rm -f
@@ -256,6 +252,9 @@ modules:
             path: patches/BloomDesktop/CodeFixesForFlatpak.patch
             options:
                 - --verbose
+          - type: dir
+            path: ./extra
+            dest: local-extra
       modules:
           - name: mono5-sil
             config-opts:
@@ -646,7 +645,7 @@ modules:
 #          #  path: /d/github/palaso/output/Debug/net461
 #          #  dest: local-palaso-output
 #          - type: dir
-#            path: ../output/Debug
+#            path: /d/github/BloomDesktop/output/Debug
 #            dest: local-bloom-output
 #          #- type: dir
 #          #  path: /d/steve/gecko/60/geckofx/Geckofx-Winforms/bin/Debug_Linux
