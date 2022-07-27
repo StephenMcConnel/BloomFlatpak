@@ -40,26 +40,18 @@ add-extensions:
 finish-args:
     - --socket=x11
     - --share=ipc
-    - --socket=system-bus
-    # Bloom can upload and download books on bloomlibrary.org.  It also needs to
-    # talk to localhost, possibly to other instances of Bloom and certainly in
-    # its own code.
     - --share=network
-    # Bloom allows playing sound files and playing and recording in audio
-    # writing systems.
     - --socket=pulseaudio
     # Bloom can import books and share folders over networks (either local or
     # via a mechanism like DropBox).  Users need to load pictures, sound files,
-    # and videos from arbitrary locations.
-    # Users need to be able to export books in various formats to arbitrary locations.
+    # and videos from arbitrary locations in the filesystem. Users also need to
+    # be able to export books in various formats to arbitrary locations.
     - --filesystem=home
     - --filesystem=host
     - --filesystem=xdg-data
-    # Bloom writes temporary folders and files to /tmp, to open in a browser to show
-    # the user, such as creating PDFs,  ePUBs, or BloomPub ebooks.  Use the same /tmp
-    # as the host, so the host programs can find the files.  Bloom also uses a lock file
-    # in /tmp as part of its attempt to keep multiple instances of Bloom running at the
-    # same time.
+    # Bloom writes temporary folders and files to /tmp, to open in a browser to
+    # show the user, such as creating PDFs, ePUBs, or BloomPub ebooks.  Use the
+    # same /tmp as the host, so the host programs can find the files.
     - --filesystem=/tmp
     # libGL needs this
     - --device=all
@@ -92,12 +84,12 @@ modules:
               cd BloomDesktop
               # These steps are adapted from the debian/rules file
               export NODE_OPTIONS=--max-old-space-size=1536
-              if [ -f ./build_number.env ]; then . ./build_number.env; else FULL_BUILD_NUMBER=5.2.1.0; fi
+              if [ -f ../local-extra/build_number.env ]; then . ../local-extra/build_number.env; else FULL_BUILD_NUMBER=5.2.1.0; fi
               (cd src/BloomBrowserUI && yarn --offline --ignore-engines && yarn --offline --ignore-engines build)
               msbuild /t:SetAssemblyVersion /p:RootDir=`pwd` /p:BUILD_NUMBER=${FULL_BUILD_NUMBER} build/Bloom.proj
               msbuild /p:Configuration=Release /p:BUILD_NUMBER=${FULL_BUILD_NUMBER} /v:diag "Bloom.sln"
               msbuild /p:Configuration=Release /p:BUILD_NUMBER=${FULL_BUILD_NUMBER} src/LinuxBloomLauncher/LinuxBloomLauncher.cproj
-              ##################################################################################################################
+              ##################################################################
               # mimic the installation steps used by the debian packaging
               # Install library files
               install -d ${BLOOMLIB}
@@ -579,6 +571,7 @@ modules:
                   path: patches/geckofx/FixesForFlatpak.patch
                   options:
                       - --verbose
+    ############################################################################
     #      - name: gtklp
     #        # requires gtk+-2.0, which is too old to be provided
     #        buildsystem: autotools
@@ -587,12 +580,13 @@ modules:
     #            archive-type: tar-gzip
     #            url: https://sourceforge.net/projects/gtklp/files/gtklp/1.3.3/gtklp-1.3.3.src.tar.gz/download
     #            sha512: ce6d37fa155857b0e47f9ed28e3b2e5180b650e821e1246d398692625e8aafeedf4869c1c7ba9d41c180856c716989a13ac98ab48cb8c8f9a73e90c4da2c6546
-    ############################################################################################
-    # gnome-terminal, terminator, xfce4-terminal, xterm
-    ############################################################################################
+    ############################################################################
+    # gnome-terminal, terminator, xfce4-terminal, xterm ?
+    ############################################################################
     - name: ArtOfReading
       sources:
-          # This .deb contains only PNG image files with a few text files such as an index and changelog.
+          # This .deb contains only PNG image files with a few text files such
+          # as an index and changelog.
           - type: file
             url: https://packages.sil.org/ubuntu/pool/main/a/art-of-reading3/art-of-reading3_3.3.1+bionic1_all.deb
             sha256: 96d99d60c1838aaac8461e3568185cc287206d2852bd3e11d94eef5d9d6a3f15
@@ -606,8 +600,9 @@ modules:
                   tar -C /app -x -f "${package}-dir"/data.tar.xz \
                     --strip-components=2 ./usr
               done
-    ############################################################################################
 
+################################################################################
+# Leave this section commented out to simplify future work.
 #    - name: local-final-adjustments
 #      # This allows for adding and testing additional files without re-building
 #      # the other modules. For example, experimental changes to libpalaso or
