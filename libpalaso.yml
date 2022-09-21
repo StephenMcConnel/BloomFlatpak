@@ -26,6 +26,8 @@ build-commands:
         export NUGET_PACKAGE=`pwd`/packages
         echo NUGET_PACKAGE=$NUGET_PACKAGE
         find . -iname nuget.exe -print
+        # we need a branch for GitVersion to work
+        git switch -c bloom5.2
         echo mono build/nuget.exe sources add -name Downloaded -source `pwd`/nuget-sources
         mono build/nuget.exe sources add -name Downloaded -source `pwd`/nuget-sources
         mono build/nuget.exe sources disable -name nuget.org
@@ -53,7 +55,6 @@ build-commands:
 sources:
     - type: git
       url: https://github.com/sillsdev/libpalaso.git
-      branch: Bloom-5.2
       commit: c4fd324c4024640ba6652e5184d66bf7962672d2
       disable-shallow-clone: true
     - type: file
@@ -108,21 +109,5 @@ sources:
     - palaso/TestAppKeyboard-nuget.json
     - type: patch
       path: patches/libpalaso/RestrictLibpalasoToNet461.patch
-      options:
-          - --verbose
     - type: patch
       path: patches/libpalaso/FixesForFlatpak.patch
-      options:
-          - --verbose
-modules:
-    - name: msbuild
-      sources:
-          - type: file
-            url: https://download.mono-project.com/repo/ubuntu/pool/main/m/msbuild/msbuild_16.10.1+xamarinxplat.2021.05.26.14.00-0xamarin2+ubuntu2004b1_all.deb
-            sha256: 32f1eba1c2df67bc55920cd45ce3689c32a5c705ae01fd7ead52ca180221b469
-      buildsystem: simple
-      build-commands:
-          - ar x msbuild_*.deb
-          - tar xf data.tar.xz
-          - sed -e 's|/usr/|/usr/lib/sdk/mono6/|g' -i usr/bin/msbuild
-          - cp -a usr/. /usr/lib/sdk/mono6/
