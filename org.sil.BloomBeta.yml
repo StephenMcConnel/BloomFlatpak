@@ -1,4 +1,4 @@
-# Bloom Flatpak package build specification
+# BloomBeta Flatpak package build specification
 #
 # Copyright (c) 2022 SIL International. MIT License.
 #
@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-app-id: org.sil.Bloom
+app-id: org.sil.BloomBeta
 
 runtime: org.gnome.Platform
 runtime-version: "42"
@@ -53,9 +53,9 @@ finish-args:
     - --filesystem=/tmp
     # libGL needs this
     - --device=dri
-rename-desktop-file: bloom.desktop
-rename-appdata-file: bloom.appdata.xml
-command: bloom
+rename-desktop-file: bloom-beta.desktop
+rename-appdata-file: bloom-beta.appdata.xml
+command: bloom-beta
 
 modules:
     - name: BloomDesktop
@@ -77,11 +77,13 @@ modules:
       build-commands:
           - |
               set -xueo pipefail
+              echo FLATPAK_BUILDER_BUILDDIR=${FLATPAK_BUILDER_BUILDDIR}
               yarn config set yarn-offline-mirror ${FLATPAK_BUILDER_BUILDDIR}/flatpak-node/yarn-mirror
               cd BloomDesktop
               # These steps are adapted from the debian/rules file
               export NODE_OPTIONS=--max-old-space-size=1536
               if [ -f ../local-extra/build_number.env ]; then . ../local-extra/build_number.env; else FULL_BUILD_NUMBER=5.2.1.0; fi
+              (cd src/content && yarn --offline --ignore-engines)
               (cd src/BloomBrowserUI && yarn --offline --ignore-engines && yarn --offline --ignore-engines build)
               msbuild /t:SetAssemblyVersion /p:RootDir=`pwd` /p:BUILD_NUMBER=${FULL_BUILD_NUMBER} build/Bloom.proj
               msbuild /p:Configuration=Release /p:BUILD_NUMBER=${FULL_BUILD_NUMBER} /v:diag "Bloom.sln"
@@ -108,7 +110,7 @@ modules:
               chmod -R a+rX,og-w ${BLOOMLIB}/browser
               # Install wrapper script
               install -d ${INSTALLATION_PREFIX}/bin
-              install debian/bloom ${INSTALLATION_PREFIX}/bin
+              install debian/bloom-beta ${INSTALLATION_PREFIX}/bin
               # Add to Applications menu
               install -d ${INSTALLATION_PREFIX}/share/pixmaps
               install -d ${INSTALLATION_PREFIX}/share/icons/hicolor/48x48/mimetypes/
@@ -118,7 +120,7 @@ modules:
               install -m 644 debian/bloom.png ${INSTALLATION_PREFIX}/share/icons/hicolor/48x48/mimetypes/org.sil.Bloom.png
               install -m 644 debian/bloom.svg ${INSTALLATION_PREFIX}/share/icons/hicolor/scalable/mimetypes/org.sil.Bloom.svg
               install -d ${INSTALLATION_PREFIX}/share/applications
-              desktop-file-install --dir ${INSTALLATION_PREFIX}/share/applications --set-icon=org.sil.Bloom debian/bloom.desktop
+              desktop-file-install --dir ${INSTALLATION_PREFIX}/share/applications --set-icon=org.sil.Bloom debian/bloom-beta.desktop
               # Install icon for our mime type so that it shows up as icon for a bloompack
               install -m 644 debian/BloomPack.png ${INSTALLATION_PREFIX}/share/icons/hicolor/48x48/mimetypes/application-bloom.png
               install -m 644 debian/BloomPack.svg ${INSTALLATION_PREFIX}/share/icons/hicolor/scalable/mimetypes/application-bloom.svg
@@ -130,7 +132,7 @@ modules:
               install -m 644 debian/JoinBloomTC.svg ${INSTALLATION_PREFIX}/share/icons/hicolor/scalable/mimetypes/application-bloom-join-team.svg
               # Add AppStream metadata file
               install -d ${INSTALLATION_PREFIX}/share/appdata
-              install -m 644 debian/bloom.appdata.xml ${INSTALLATION_PREFIX}/share/appdata
+              install -m 644 debian/bloom-beta.appdata.xml ${INSTALLATION_PREFIX}/share/appdata
               # Remove unwanted files
               cd ${BLOOMLIB} && rm -rf AxInterop* BloomTests* Interop* Moq* nunit* NUnit* AndikaNewBasic ffmpeg ghostscript
               find ${BLOOMLIB} -name '*.map' -print0 | xargs -0 rm -f
@@ -165,13 +167,13 @@ modules:
           - type: git
             dest: BloomDesktop
             url: https://github.com/BloomBooks/BloomDesktop.git
-            commit: 06bd25f037bafad0cef3e74081801a72ca982d97
+            commit: f65431b2f4202adff7139d8df530b31e0c657389
           # Bloom nuget dependencies
           # To regenerate bloom-build-sources-nuget.yml:
-          #   ./compose-nuget-sources bloom-build-sources-nuget.yml . ./buildPackages.config
+          #   ./compose-nuget-sources bloom-build-sources-nuget.yml . ./extra/buildPackages.config
           - bloom-build-nuget-sources.yml
           # To regenerate bloom-sources-nuget.yml:
-          #   ./compose-nuget-sources bloom-sources-nuget.yml . ../src/BloomExe/Linux/packages.config
+          #   ./compose-nuget-sources bloom-sources-nuget.yml . ../BloomBeta/src/BloomExe/Linux/packages.config
           - bloom-sources-nuget.yml
           - type: shell
             # Extract nuget packages. The 'type: archive', 'archive-type: zip' had
@@ -190,22 +192,22 @@ modules:
                     chmod 755 "${NUGET_DEST}"/sqlite-net-pcl.1.7.335/lib/netstandard2.0/SQLite-net.*
                     # copy artifacts from internal libpalaso and geckofx builds to where the nuget packages have been installed.
                     # (we need some things the nuget package includes, but want to replace the actual assemblies and add debug info)
-                    cp --verbose --force /app/libpalaso/SIL.Core.dll "${NUGET_DEST}"/SIL.Core.9.0.0-beta0119/lib/net461/
-                    cp --verbose --force /app/libpalaso/SIL.Core.pdb "${NUGET_DEST}"/SIL.Core.9.0.0-beta0119/lib/net461/
-                    cp --verbose --force /app/libpalaso/SIL.Core.Desktop.dll "${NUGET_DEST}"/SIL.Core.Desktop.9.0.0-beta0119/lib/net461/
-                    cp --verbose --force /app/libpalaso/SIL.Core.Desktop.pdb "${NUGET_DEST}"/SIL.Core.Desktop.9.0.0-beta0119/lib/net461/
-                    cp --verbose --force /app/libpalaso/SIL.Media.dll "${NUGET_DEST}"/SIL.Media.9.0.0-beta0119/lib/net461/
-                    cp --verbose --force /app/libpalaso/SIL.Media.pdb "${NUGET_DEST}"/SIL.Media.9.0.0-beta0119/lib/net461/
-                    cp --verbose --force /app/libpalaso/SIL.Windows.Forms.dll "${NUGET_DEST}"/SIL.Windows.Forms.9.0.0-beta0119/lib/net461/
-                    cp --verbose --force /app/libpalaso/SIL.Windows.Forms.pdb "${NUGET_DEST}"/SIL.Windows.Forms.9.0.0-beta0119/lib/net461/
-                    cp --verbose --force /app/libpalaso/SIL.Windows.Forms.GeckoBrowserAdapter.dll "${NUGET_DEST}"/SIL.Windows.Forms.GeckoBrowserAdapter.9.0.0-beta0119/lib/net461/
-                    cp --verbose --force /app/libpalaso/SIL.Windows.Forms.GeckoBrowserAdapter.pdb "${NUGET_DEST}"/SIL.Windows.Forms.GeckoBrowserAdapter.9.0.0-beta0119/lib/net461/
-                    cp --verbose --force /app/libpalaso/SIL.Windows.Forms.Keyboarding.dll "${NUGET_DEST}"/SIL.Windows.Forms.Keyboarding.9.0.0-beta0119/lib/net461/
-                    cp --verbose --force /app/libpalaso/SIL.Windows.Forms.Keyboarding.pdb "${NUGET_DEST}"/SIL.Windows.Forms.Keyboarding.9.0.0-beta0119/lib/net461/
-                    cp --verbose --force /app/libpalaso/SIL.Windows.Forms.WritingSystems.dll "${NUGET_DEST}"/SIL.Windows.Forms.WritingSystems.9.0.0-beta0119/lib/net461/
-                    cp --verbose --force /app/libpalaso/SIL.Windows.Forms.WritingSystems.pdb "${NUGET_DEST}"/SIL.Windows.Forms.WritingSystems.9.0.0-beta0119/lib/net461/
-                    cp --verbose --force /app/libpalaso/SIL.WritingSystems.dll "${NUGET_DEST}"/SIL.WritingSystems.9.0.0-beta0119/lib/net461/
-                    cp --verbose --force /app/libpalaso/SIL.WritingSystems.pdb "${NUGET_DEST}"/SIL.WritingSystems.9.0.0-beta0119/lib/net461/
+                    cp --verbose --force /app/libpalaso/SIL.Core.dll "${NUGET_DEST}"/SIL.Core.9.0.1-beta0015/lib/net461/
+                    cp --verbose --force /app/libpalaso/SIL.Core.pdb "${NUGET_DEST}"/SIL.Core.9.0.1-beta0015/lib/net461/
+                    cp --verbose --force /app/libpalaso/SIL.Core.Desktop.dll "${NUGET_DEST}"/SIL.Core.Desktop.9.0.1-beta0015/lib/net461/
+                    cp --verbose --force /app/libpalaso/SIL.Core.Desktop.pdb "${NUGET_DEST}"/SIL.Core.Desktop.9.0.1-beta0015/lib/net461/
+                    cp --verbose --force /app/libpalaso/SIL.Media.dll "${NUGET_DEST}"/SIL.Media.9.0.1-beta0015/lib/net461/
+                    cp --verbose --force /app/libpalaso/SIL.Media.pdb "${NUGET_DEST}"/SIL.Media.9.0.1-beta0015/lib/net461/
+                    cp --verbose --force /app/libpalaso/SIL.Windows.Forms.dll "${NUGET_DEST}"/SIL.Windows.Forms.9.0.1-beta0015/lib/net461/
+                    cp --verbose --force /app/libpalaso/SIL.Windows.Forms.pdb "${NUGET_DEST}"/SIL.Windows.Forms.9.0.1-beta0015/lib/net461/
+                    cp --verbose --force /app/libpalaso/SIL.Windows.Forms.GeckoBrowserAdapter.dll "${NUGET_DEST}"/SIL.Windows.Forms.GeckoBrowserAdapter.9.0.1-beta0015/lib/net461/
+                    cp --verbose --force /app/libpalaso/SIL.Windows.Forms.GeckoBrowserAdapter.pdb "${NUGET_DEST}"/SIL.Windows.Forms.GeckoBrowserAdapter.9.0.1-beta0015/lib/net461/
+                    cp --verbose --force /app/libpalaso/SIL.Windows.Forms.Keyboarding.dll "${NUGET_DEST}"/SIL.Windows.Forms.Keyboarding.9.0.1-beta0015/lib/net461/
+                    cp --verbose --force /app/libpalaso/SIL.Windows.Forms.Keyboarding.pdb "${NUGET_DEST}"/SIL.Windows.Forms.Keyboarding.9.0.1-beta0015/lib/net461/
+                    cp --verbose --force /app/libpalaso/SIL.Windows.Forms.WritingSystems.dll "${NUGET_DEST}"/SIL.Windows.Forms.WritingSystems.9.0.1-beta0015/lib/net461/
+                    cp --verbose --force /app/libpalaso/SIL.Windows.Forms.WritingSystems.pdb "${NUGET_DEST}"/SIL.Windows.Forms.WritingSystems.9.0.1-beta0015/lib/net461/
+                    cp --verbose --force /app/libpalaso/SIL.WritingSystems.dll "${NUGET_DEST}"/SIL.WritingSystems.9.0.1-beta0015/lib/net461/
+                    cp --verbose --force /app/libpalaso/SIL.WritingSystems.pdb "${NUGET_DEST}"/SIL.WritingSystems.9.0.1-beta0015/lib/net461/
                     rm "${NUGET_DEST}"/Geckofx60.64.Linux.60.0.51/lib/net40/Geckofx-*.dll.mdb
                     cp --verbose --force /app/geckofx/Geckofx-Core.dll "${NUGET_DEST}"/Geckofx60.64.Linux.60.0.51/lib/net40/
                     cp --verbose --force /app/geckofx/Geckofx-Core.dll.config "${NUGET_DEST}"/Geckofx60.64.Linux.60.0.51/lib/net40/
@@ -229,7 +231,11 @@ modules:
                     pwd
                     mkdir -p "BloomDesktop/DistFiles/pdf" && unzip -uqo BloomDesktop/Downloads/pdfjs-viewer.zip -d "BloomDesktop/DistFiles/pdf"
           # python3 flatpak-builder-tools/node/flatpak-node-generator.py -o bloom-sources-browser-node.json yarn ../src/BloomBrowserUI/yarn.lock
+          # (or flatpak-node-generator -o bloom-sources-browser-node.json yarn ../BloomBeta/src/BloomBrowserUI/yarn.lock)
           - bloom-sources-browser-node.json
+          # python3 flatpak-builder-tools/node/flatpak-node-generator.py -o bloom-sources-content-node.json yarn ../src/content/yarn.lock
+          # (or flatpak-node-generator -o bloom-sources-content-node.json yarn /d/github/BloomBeta/src/content/yarn.lock)
+          - bloom-sources-content-node.json
           - type: patch
             path: patches/BloomDesktop/BuildFileFixesForFlatpak.patch
           - type: patch
@@ -237,6 +243,10 @@ modules:
           - type: dir
             path: ./extra
             dest: local-extra
+          - type: file
+            url: https://dist.nuget.org/win-x86-commandline/v6.2.1/nuget.exe
+            sha256: a79f342e739fdb3903a92218767e7813e04930dff463621b6d2be2d468b84e05
+            dest: BloomDesktop/.nuget
       modules:
           # python2.7 is needed for mono5-sil
           - shared-modules/python2.7/python-2.7.json

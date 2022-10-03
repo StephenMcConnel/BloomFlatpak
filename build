@@ -12,10 +12,10 @@ exec &> >(tee "${LOG_DIR}/flatpak-build-$(date +"%F-%H%M%S").log")
 # --delete-build-dirs so that the build dirs from this time are left in place
 # for optional inspection.
 #rm -rf .flatpak-builder/build
-flatpak-builder --user --repo=../flatpak/local-repo --keep-build-dirs --force-clean ./build-dir org.sil.Bloom.yml "$@"
+flatpak-builder --user --repo=../flatpak/local-repo --keep-build-dirs --force-clean ./build-dir org.sil.BloomBeta.yml "$@"
 flatpak --user remote-add --no-gpg-verify --if-not-exists local-repo ../flatpak/local-repo
-# If a Bloom flatpak is already installed, such as from a downloaded
+# If a BloomBeta flatpak is already installed, such as from a downloaded
 # .flatpak file, remove it so we don't fail to install what we just built.
-flatpak remove --assumeyes org.sil.Bloom org.sil.Bloom.Debug org.sil.Bloom.Locale ||
+flatpak remove --assumeyes org.sil.BloomBeta org.sil.BloomBeta.Debug org.sil.BloomBeta.Locale ||
     echo "flatpak packages were not already installed."
-flatpak --user install --or-update --noninteractive local-repo org.sil.Bloom org.sil.Bloom.Debug
+flatpak --user install --or-update --noninteractive local-repo org.sil.BloomBeta org.sil.BloomBeta.Debug

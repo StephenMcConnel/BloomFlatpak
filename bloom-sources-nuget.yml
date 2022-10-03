@@ -95,9 +95,9 @@
   sha512: 6ccd116d09e6418c257ed99dfefcffa6f125179a2b367abe7188ed04f9bf86726513a135d82f572db578624e5bcc5ce12306f519aeab21c45c8883a36f6b0261
   dest: .
 - type: file
-  url: https://api.nuget.org/v3-flatcontainer/l10nsharp/4.2.0-beta0006/l10nsharp.4.2.0-beta0006.nupkg
-  dest-filename: L10NSharp.4.2.0-beta0006.nupkg
-  sha512: b988c5573e7194ca9843e9eec18c4dba82be93cdb6d1e5ec7931219b18eeb3afec2bb2c8d0625bbf2fa45042d5abbeaff807e62d1313de1f98a91f75bdab84c7
+  url: https://api.nuget.org/v3-flatcontainer/l10nsharp/5.0.0-beta0088/l10nsharp.5.0.0-beta0088.nupkg
+  dest-filename: L10NSharp.5.0.0-beta0088.nupkg
+  sha512: b634c527c46e92d29ece7f1999e6a06431f81f6527e84706f2f5cc2b8a0163e6dfea930e7011057607652bd52bc9110ec44552e75326b32426295d70e1019af6
   dest: .
 - type: file
   url: https://api.nuget.org/v3-flatcontainer/markdig.signed/0.22.0/markdig.signed.0.22.0.nupkg
@@ -175,44 +175,44 @@
   sha512: cd222c7731ee524eedcbf43c54612385ea0539c4309c4df1a1a12e93fbc3d6fade897b3df7a7fd19004f4708bfa94c6975c52e726c0664aa04c7ad2eb8d9c9f9
   dest: .
 - type: file
-  url: https://api.nuget.org/v3-flatcontainer/sil.core/9.0.0-beta0119/sil.core.9.0.0-beta0119.nupkg
-  dest-filename: SIL.Core.9.0.0-beta0119.nupkg
-  sha512: 4bbbe14b9f9e762e60c73fa6d4ed3c6d871515b3ebeadb99a4551b75633a9c500842e786ad11731297e4c8d91bc527b7d462ba0fd1f2da91dc6068dda2bcca30
+  url: https://api.nuget.org/v3-flatcontainer/sil.core/9.0.1-beta0015/sil.core.9.0.1-beta0015.nupkg
+  dest-filename: SIL.Core.9.0.1-beta0015.nupkg
+  sha512: f22a42a4ecca4d982242106a5985f038c8c748b477b3bc0074d5bcfabf59c15d7d140c1281286018db2e525a2a63642046e7295ee422f2672d01e5a6a402571e
   dest: .
 - type: file
-  url: https://api.nuget.org/v3-flatcontainer/sil.core.desktop/9.0.0-beta0119/sil.core.desktop.9.0.0-beta0119.nupkg
-  dest-filename: SIL.Core.Desktop.9.0.0-beta0119.nupkg
-  sha512: ae69d9f9aa8b3ea834068a96738c6937895dd17730180352bcb2fedc7fed97533685e6681d11bd9b30383868907931bfc838e1b92b6e37db4263850898a2d53d
+  url: https://api.nuget.org/v3-flatcontainer/sil.core.desktop/9.0.1-beta0015/sil.core.desktop.9.0.1-beta0015.nupkg
+  dest-filename: SIL.Core.Desktop.9.0.1-beta0015.nupkg
+  sha512: 6a4c230add9dad17c8e0fed629bb29e4584469f055cf43a5ece6729a3d1707dc7fe86aa84a1bab770973f71a12b1b00f0a8ad89f458871a7d4caee99bbf5f71e
   dest: .
 - type: file
-  url: https://api.nuget.org/v3-flatcontainer/sil.media/9.0.0-beta0119/sil.media.9.0.0-beta0119.nupkg
-  dest-filename: SIL.Media.9.0.0-beta0119.nupkg
-  sha512: 5d6bfa065937f36b4c30e86d8d374bf110bd38b446d94ee48479d4413ec1222de250ca07c918cc5e0485749c67c95179914e7783ffc969e4e36433b0c1d86f8f
+  url: https://api.nuget.org/v3-flatcontainer/sil.media/9.0.1-beta0015/sil.media.9.0.1-beta0015.nupkg
+  dest-filename: SIL.Media.9.0.1-beta0015.nupkg
+  sha512: 130101ff66413b06a86325f2c8e9a535a1bbe71f1fc32464c1f1fc6893128d06313292cc9277f06291e37cd2b8c8629dc08b037cf7586d27e0f3607318f48cc3
   dest: .
 - type: file
-  url: https://api.nuget.org/v3-flatcontainer/sil.windows.forms/9.0.0-beta0119/sil.windows.forms.9.0.0-beta0119.nupkg
-  dest-filename: SIL.Windows.Forms.9.0.0-beta0119.nupkg
-  sha512: 4471f41a332d27e444d5879f79da5b8ed13fcc49a6f69665801f276c9b3be5067896e4d0f3ca558e774a110bbe9725af8862e01403e1fc46348d2db7cd2fcad0
+  url: https://api.nuget.org/v3-flatcontainer/sil.windows.forms/9.0.1-beta0015/sil.windows.forms.9.0.1-beta0015.nupkg
+  dest-filename: SIL.Windows.Forms.9.0.1-beta0015.nupkg
+  sha512: 899c2e691c915002868dc644349a728bc1a044866445bd2121f1cdc34127864c3cd6e3bd93c272207c741cfa7f35b59304e9f8870ac3da2a76c09ce3e5e1f2a1
   dest: .
 - type: file
-  url: https://api.nuget.org/v3-flatcontainer/sil.windows.forms.geckobrowseradapter/9.0.0-beta0119/sil.windows.forms.geckobrowseradapter.9.0.0-beta0119.nupkg
-  dest-filename: SIL.Windows.Forms.GeckoBrowserAdapter.9.0.0-beta0119.nupkg
-  sha512: ce7b2ae3cbfee51d92b94151dd1861c7b779887bdc3903f1126917619c13861c56075297b586439daed6e58028d25913710dc55ead448be0c286d2fdc71206b0
+  url: https://api.nuget.org/v3-flatcontainer/sil.windows.forms.geckobrowseradapter/9.0.1-beta0015/sil.windows.forms.geckobrowseradapter.9.0.1-beta0015.nupkg
+  dest-filename: SIL.Windows.Forms.GeckoBrowserAdapter.9.0.1-beta0015.nupkg
+  sha512: 38f32eed27224b27aca5af5244f2b9109e55259d3648717c334260c40354a2db74c674fc9d47e23a1a0ac463dd34fd8a2fab14a5175cd46f153e1f56408a4800
   dest: .
 - type: file
-  url: https://api.nuget.org/v3-flatcontainer/sil.windows.forms.keyboarding/9.0.0-beta0119/sil.windows.forms.keyboarding.9.0.0-beta0119.nupkg
-  dest-filename: SIL.Windows.Forms.Keyboarding.9.0.0-beta0119.nupkg
-  sha512: 06717b9fbe533e91b56056b3cbf78fd5b4062ed15f35bc108aea70254c83e57739f100ee5dca3f3a88c2bfb5b6ceb6eed34ccb4f27574031532912a8cd698ba6
+  url: https://api.nuget.org/v3-flatcontainer/sil.windows.forms.keyboarding/9.0.1-beta0015/sil.windows.forms.keyboarding.9.0.1-beta0015.nupkg
+  dest-filename: SIL.Windows.Forms.Keyboarding.9.0.1-beta0015.nupkg
+  sha512: f62d477a9e697d5056412632972418358cef46f4a257f33fe19296a311edbd7a1690df8b37222fa53c6ebeb21825e1403f486a24b49ddda0af5f7414d073e8fc
   dest: .
 - type: file
-  url: https://api.nuget.org/v3-flatcontainer/sil.windows.forms.writingsystems/9.0.0-beta0119/sil.windows.forms.writingsystems.9.0.0-beta0119.nupkg
-  dest-filename: SIL.Windows.Forms.WritingSystems.9.0.0-beta0119.nupkg
-  sha512: 3180781a4250b6912a677453f3976afbfaaf3090353a5af409d60f7b18820a472afa3e4173a6293e80d01a478e21a0f1d0ab6c91fb7abae4e020cf5cbd226665
+  url: https://api.nuget.org/v3-flatcontainer/sil.windows.forms.writingsystems/9.0.1-beta0015/sil.windows.forms.writingsystems.9.0.1-beta0015.nupkg
+  dest-filename: SIL.Windows.Forms.WritingSystems.9.0.1-beta0015.nupkg
+  sha512: eaaf623c39c69038bcf505c0da8fd1d8b0ffc67c8ca44611b6603b994ae3528e503e501c23b5f98e15c48b9cb4f1a4705ed850e7d190d5327f8663976aa5d2e4
   dest: .
 - type: file
-  url: https://api.nuget.org/v3-flatcontainer/sil.writingsystems/9.0.0-beta0119/sil.writingsystems.9.0.0-beta0119.nupkg
-  dest-filename: SIL.WritingSystems.9.0.0-beta0119.nupkg
-  sha512: f61617250e7ba1649412efffc2b5ffa3e6fadd36260d9f885fb66067c33d709b038d608062690b69eeb888b41f390b99d89e0dfb489b9650876bb9e1a691ec8f
+  url: https://api.nuget.org/v3-flatcontainer/sil.writingsystems/9.0.1-beta0015/sil.writingsystems.9.0.1-beta0015.nupkg
+  dest-filename: SIL.WritingSystems.9.0.1-beta0015.nupkg
+  sha512: f0d347277b987c8957484b8dea1b452f765c6e30a60b1fab6d0ae11eb4ac7f0d1f9edcb81fb6024a9b8a1d7a9bf0002e1c97c5e56e38388e90ea5a6e47689a29
   dest: .
 - type: file
   url: https://api.nuget.org/v3-flatcontainer/sqlitepclraw.bundle_green/2.0.3/sqlitepclraw.bundle_green.2.0.3.nupkg
@@ -245,9 +245,9 @@
   sha512: a53b914e97d2298b307d0dd9f4dc5c653cbfccbd1ad359b4e00ac6167ec0adb4d3b15900c450d19263dd84cd95feadd80f7ca6eff033d990be9630e063553f6b
   dest: .
 - type: file
-  url: https://api.nuget.org/v3-flatcontainer/sharpziplib/1.3.0/sharpziplib.1.3.0.nupkg
-  dest-filename: SharpZipLib.1.3.0.nupkg
-  sha512: 24b3d666d05080e8b66ea2c790b3bde9483a397bae83f51985755fce706fcc402956d9e06ffea36e00c941bac67efcda00a1ab2ad56751804b43669114b823bf
+  url: https://api.nuget.org/v3-flatcontainer/sharpziplib/1.3.3/sharpziplib.1.3.3.nupkg
+  dest-filename: SharpZipLib.1.3.3.nupkg
+  sha512: 5f6996e38a31861449a493b9387e91097abe06f3ca936e618e6b914091699b7319bda7e392a532a96c06287e9b3c28786183c5fbc212ac2bbdd10809151e6dbb
   dest: .
 - type: file
   url: https://api.nuget.org/v3-flatcontainer/sourcemapdotnet/1.0.5478.26629/sourcemapdotnet.1.0.5478.26629.nupkg
@@ -270,9 +270,19 @@
   sha512: 726f8db7d179714cf0efeb0fc02fcebe7b4755762902e391e77cf78671dd5d5f364c7cf4ce3545b51cc7f37327d12d1500ba19f4b934f0e8bb69a6a347c0bbfd
   dest: .
 - type: file
+  url: https://api.nuget.org/v3-flatcontainer/system.configuration.configurationmanager/6.0.0/system.configuration.configurationmanager.6.0.0.nupkg
+  dest-filename: System.Configuration.ConfigurationManager.6.0.0.nupkg
+  sha512: de58cb928d6303a16301fd7aa8edac379dfe6c47e6d80b21665f92bab9dd5ff52b3e244cf6df0f945f1c72e71c92337561dbf2752fc3324174a8c9ecc70c3247
+  dest: .
+- type: file
   url: https://api.nuget.org/v3-flatcontainer/system.diagnostics.diagnosticsource/4.7.1/system.diagnostics.diagnosticsource.4.7.1.nupkg
   dest-filename: System.Diagnostics.DiagnosticSource.4.7.1.nupkg
   sha512: 65fd7fda175481b603ad730e2ec2b7f67ff83b5145f9b92d3a54fcd7a692cea30f0eddd53a3126b98077989e460bc2faaf77cdf20bb6645bd4a25c44821bcbb0
+  dest: .
+- type: file
+  url: https://api.nuget.org/v3-flatcontainer/system.drawing.common/6.0.0/system.drawing.common.6.0.0.nupkg
+  dest-filename: System.Drawing.Common.6.0.0.nupkg
+  sha512: d61f0a3e01c3eac15f13fc1ba04a2c7ce4eac956400b2faa361fecabd3836d49d5bd344f3985ee3d94cdc3f6a72b8e07e423cdb2965b4f5ca2222b5de32988e4
   dest: .
 - type: file
   url: https://api.nuget.org/v3-flatcontainer/system.globalization/4.3.0/system.globalization.4.3.0.nupkg
@@ -310,14 +320,19 @@
   sha512: 6f4905329a3cc9e62d274c885f275ee31c5af57a6c9fd1a5080d039cb748e0277bef3dc8ce42863cac78365084e00a032279bf3d2b7254a49f3fb1566a29ad1b
   dest: .
 - type: file
-  url: https://api.nuget.org/v3-flatcontainer/system.security.accesscontrol/4.7.0/system.security.accesscontrol.4.7.0.nupkg
-  dest-filename: System.Security.AccessControl.4.7.0.nupkg
-  sha512: 464255881cc1ad9a0df09eaa1ea926c75df4196537a1c5adb180665ec21f8da627d00c778601ee05894ee745664374a38f0369778c98b29cbe236aa70deab5ae
+  url: https://api.nuget.org/v3-flatcontainer/system.security.accesscontrol/6.0.0/system.security.accesscontrol.6.0.0.nupkg
+  dest-filename: System.Security.AccessControl.6.0.0.nupkg
+  sha512: 64a36a103b954ab4b7e8a76c0e876579bd484c308e444c2d915fb9a0fd05ad63614501ed235c544afc9b431cb8a4cf0f0715b8ed414e85958e6d68579168fb45
   dest: .
 - type: file
-  url: https://api.nuget.org/v3-flatcontainer/system.security.principal.windows/4.7.0/system.security.principal.windows.4.7.0.nupkg
-  dest-filename: System.Security.Principal.Windows.4.7.0.nupkg
-  sha512: f30a16d34c8792db60b2240363a8b200cab28bc2c7441405cf19abf71dbf5fb0bf3bd1cbec4d9b5eb4cf73ec482e4505d08d80afdef00b2b4b3bb56d6d4cae96
+  url: https://api.nuget.org/v3-flatcontainer/system.security.permissions/6.0.0/system.security.permissions.6.0.0.nupkg
+  dest-filename: System.Security.Permissions.6.0.0.nupkg
+  sha512: d4f2172cc3b164f104fa2e3a330b62f2a15f50e050a91659db5728f28d4d5d6ca8660eec3a4f922090181a54bc1e9f6634ca49750398360727d1bc59db620278
+  dest: .
+- type: file
+  url: https://api.nuget.org/v3-flatcontainer/system.security.principal.windows/5.0.0/system.security.principal.windows.5.0.0.nupkg
+  dest-filename: System.Security.Principal.Windows.5.0.0.nupkg
+  sha512: 44a920aaaf22b2172d41319bb57ab2b8e1a4531d5f02192a6f53a81d875125195b60ba0b5a44a45981d137fd7b0f3a65b12959b5fd97afc0578cd84ef27467cd
   dest: .
 - type: file
   url: https://api.nuget.org/v3-flatcontainer/system.text.encodings.web/5.0.1/system.text.encodings.web.5.0.1.nupkg
@@ -328,11 +343,6 @@
   url: https://api.nuget.org/v3-flatcontainer/system.text.json/5.0.2/system.text.json.5.0.2.nupkg
   dest-filename: System.Text.Json.5.0.2.nupkg
   sha512: 3d32f887630b6ca12a67ff5313a484989a75b71221d068f360f42b5866df279b206cfae95f36fdb0ea177b7722779d730c113ed8a08b77de5eff4e0988daf44d
-  dest: .
-- type: file
-  url: https://api.nuget.org/v3-flatcontainer/system.threading.tasks.extensions/4.5.4/system.threading.tasks.extensions.4.5.4.nupkg
-  dest-filename: System.Threading.Tasks.Extensions.4.5.4.nupkg
-  sha512: 68052086e77d3c7198737a3da163d67740b7c44f93250c39659b3bf21b6547a9abf64cbf40481f5c78f24361af3aaf47d52d188b371554a0928a7f7665c1fc14
   dest: .
 - type: file
   url: https://api.nuget.org/v3-flatcontainer/taglibsharp/2.2.0/taglibsharp.2.2.0.nupkg

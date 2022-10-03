@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2022 SIL International -->
 <component type="desktop-application">
-  <id>org.sil.Bloom</id>
-	<launchable type="desktop-id">org.sil.Bloom.desktop</launchable>
+  <id>org.sil.BloomBeta</id>
+	<launchable type="desktop-id">org.sil.BloomBeta.desktop</launchable>
   <metadata_license>MIT</metadata_license>
   <project_license>MIT</project_license>
-  <name>Bloom</name>
+  <name>Bloom Beta</name>
   <summary>Literacy materials development for language communities</summary>
   <description>
     <p>
@@ -38,7 +38,7 @@
   <url type="bugtracker">https://issues.bloomlibrary.org/youtrack</url>
   <url type="help">https://community.software.sil.org/c/bloom</url>
   <releases>
-    <release version="5.2" date="2022-07-07">
+    <release version="5.3" date="2022-09-22">
     </release>
   </releases>
   <content_rating type="oars-1.0"/>
