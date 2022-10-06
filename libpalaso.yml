@@ -27,7 +27,7 @@ build-commands:
         echo NUGET_PACKAGE=$NUGET_PACKAGE
         find . -iname nuget.exe -print
         # we need a branch for GitVersion to work
-        git switch -c bloom5.2
+        git switch -c bloom5.3
         echo mono build/nuget.exe sources add -name Downloaded -source `pwd`/nuget-sources
         mono build/nuget.exe sources add -name Downloaded -source `pwd`/nuget-sources
         mono build/nuget.exe sources disable -name nuget.org

@@ -290,6 +290,11 @@
   sha512: 823d2ba308cb073b40a3146ecccd0d9fd7b1615ac3fbefb16f73d873e411fd81c3bdc87df206d3dc7e2f14c9cd53aafca684a3570c25471280aada8de805ece2
   dest: .
 - type: file
+  url: https://api.nuget.org/v3-flatcontainer/system.io.filesystem/4.3.0/system.io.filesystem.4.3.0.nupkg
+  dest-filename: System.IO.FileSystem.4.3.0.nupkg
+  sha512: 4fb581d6f85b9529a091a0e974633752aa39e50b2be6c8a9e5eca8c2bc225cea07064ccec7778f77df9987deebf4dccec050b1a97edac0ee9107142e6a8ee7ee
+  dest: .
+- type: file
   url: https://api.nuget.org/v3-flatcontainer/system.io.filesystem.accesscontrol/4.7.0/system.io.filesystem.accesscontrol.4.7.0.nupkg
   dest-filename: System.IO.FileSystem.AccessControl.4.7.0.nupkg
   sha512: 7fbb40e2c6762f099d63eadf8695513f3c8db5abaa027a14f93be90a3b55db9516187450f5aa5578586661ea53835107f60972a23868feab2bc5fbe7265bd307
@@ -343,6 +348,11 @@
   url: https://api.nuget.org/v3-flatcontainer/system.text.json/5.0.2/system.text.json.5.0.2.nupkg
   dest-filename: System.Text.Json.5.0.2.nupkg
   sha512: 3d32f887630b6ca12a67ff5313a484989a75b71221d068f360f42b5866df279b206cfae95f36fdb0ea177b7722779d730c113ed8a08b77de5eff4e0988daf44d
+  dest: .
+- type: file
+  url: https://api.nuget.org/v3-flatcontainer/system.threading.tasks.extensions/4.5.4/system.threading.tasks.extensions.4.5.4.nupkg
+  dest-filename: System.Threading.Tasks.Extensions.4.5.4.nupkg
+  sha512: 68052086e77d3c7198737a3da163d67740b7c44f93250c39659b3bf21b6547a9abf64cbf40481f5c78f24361af3aaf47d52d188b371554a0928a7f7665c1fc14
   dest: .
 - type: file
   url: https://api.nuget.org/v3-flatcontainer/taglibsharp/2.2.0/taglibsharp.2.2.0.nupkg

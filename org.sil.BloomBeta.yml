@@ -69,8 +69,8 @@ modules:
               INSTALLATION_PREFIX: "/app"
               RUNMODE: "PACKAGING"
               XDG_CACHE_HOME: /run/build/flatpak-node/cache
-              BLOOMLIB: "/app/lib/bloom-desktop"
-              BLOOMSHARE: "/app/share/bloom-desktop"
+              BLOOMLIB: "/app/lib/bloom-desktop-beta"
+              BLOOMSHARE: "/app/share/bloom-desktop-beta"
               PREFIX: "/app"
               PERL5LIB: "/app/perl-modules/lib/perl5"
               BUILD_CONFIG: "Release"
@@ -82,7 +82,7 @@ modules:
               cd BloomDesktop
               # These steps are adapted from the debian/rules file
               export NODE_OPTIONS=--max-old-space-size=1536
-              if [ -f ../local-extra/build_number.env ]; then . ../local-extra/build_number.env; else FULL_BUILD_NUMBER=5.2.1.0; fi
+              if [ -f ../local-extra/build_number.env ]; then . ../local-extra/build_number.env; else FULL_BUILD_NUMBER=5.3.1.0; fi
               (cd src/content && yarn --offline --ignore-engines)
               (cd src/BloomBrowserUI && yarn --offline --ignore-engines && yarn --offline --ignore-engines build)
               msbuild /t:SetAssemblyVersion /p:RootDir=`pwd` /p:BUILD_NUMBER=${FULL_BUILD_NUMBER} build/Bloom.proj
@@ -167,13 +167,15 @@ modules:
           - type: git
             dest: BloomDesktop
             url: https://github.com/BloomBooks/BloomDesktop.git
-            commit: f65431b2f4202adff7139d8df530b31e0c657389
+            commit: efca8efa1d9e7748259900500a9f4be6af6ab786
           # Bloom nuget dependencies
           # To regenerate bloom-build-sources-nuget.yml:
           #   ./compose-nuget-sources bloom-build-sources-nuget.yml . ./extra/buildPackages.config
           - bloom-build-nuget-sources.yml
           # To regenerate bloom-sources-nuget.yml:
           #   ./compose-nuget-sources bloom-sources-nuget.yml . ../BloomBeta/src/BloomExe/Linux/packages.config
+          # (but first, you have to apply a patch to get the right version on MarkdownDeep
+          # and to pick up two System.* files from BloomTests.)
           - bloom-sources-nuget.yml
           - type: shell
             # Extract nuget packages. The 'type: archive', 'archive-type: zip' had
@@ -215,7 +217,11 @@ modules:
                     cp --verbose --force /app/geckofx/Geckofx-Winforms.dll "${NUGET_DEST}"/Geckofx60.64.Linux.60.0.51/lib/net40/
                     cp --verbose --force /app/geckofx/Geckofx-Winforms.dll.config "${NUGET_DEST}"/Geckofx60.64.Linux.60.0.51/lib/net40/
                     cp --verbose --force /app/geckofx/Geckofx-Winforms.pdb "${NUGET_DEST}"/Geckofx60.64.Linux.60.0.51/lib/net40/
-                    rm -rf /app/libpalaso /app/geckofx
+                    cp --verbose --force /app/l10nsharp/L10NSharp.dll "${NUGET_DEST}"/L10NSharp.5.0.0-beta0088/lib/net461/
+                    cp --verbose --force /app/l10nsharp/L10NSharp.pdb "${NUGET_DEST}"/L10NSharp.5.0.0-beta0088/lib/net461/
+                    rm -rf /app/libpalaso /app/geckofx /app/l10nsharp
+
+
           # Bloom dependencies
           # Find updates via Bloom.git with a command like:
           #   git log -p -- build/getDependencies-Linux.sh
@@ -552,6 +558,42 @@ modules:
                   commit: a77e5ba72728630ee02b95892d5fd0c219f87c98
                 - type: patch
                   path: patches/geckofx/FixesForFlatpak.patch
+          - l10nsharp.yml
+          # Andika Fonts
+          # Extract fonts. The 'type: archive', 'archive-type: zip' has some trouble working,
+          # so manually extract.
+          - name: AndikaFonts
+            sources:
+                - type: file
+                  url: https://software.sil.org/downloads/r/andika/Andika-6.101.zip
+                  sha256: 8595a879054a540b24fa942a2621efcd194a9f6468d9cf2541ae693e496b8dd4
+                - type: file
+                  url: https://software.sil.org/downloads/r/andika/AndikaNewBasic-5.500.zip
+                  sha256: 18308284a3e98cd7712d057742d8d6cd040a52ec0479a1dcf92d57815f8d368a
+            buildsystem: simple
+            build-commands:
+                - |
+                    set -xueo pipefail
+                    unzip -uqo Andika-6.101.zip
+                    install -d /app/share/fonts/truetype/andika
+                    install Andika-6.101/Andika-Regular.ttf /app/share/fonts/truetype/andika
+                    install Andika-6.101/Andika-Bold.ttf /app/share/fonts/truetype/andika
+                    install Andika-6.101/Andika-Italic.ttf /app/share/fonts/truetype/andika
+                    install Andika-6.101/Andika-BoldItalic.ttf /app/share/fonts/truetype/andika
+                    install -d /app/share/doc/fonts-sil-andika
+                    install Andika-6.101/OFL.txt /app/share/doc/fonts-sil-andika
+                    install Andika-6.101/README.txt /app/share/doc/fonts-sil-andika
+                    unzip -uqo AndikaNewBasic-5.500.zip
+                    install -d /app/share/fonts/opentype/andika-new-basic
+                    install AndikaNewBasic-5.500/AndikaNewBasic-R.ttf /app/share/fonts/opentype/andika-new-basic
+                    install AndikaNewBasic-5.500/AndikaNewBasic-B.ttf /app/share/fonts/opentype/andika-new-basic
+                    install AndikaNewBasic-5.500/AndikaNewBasic-I.ttf /app/share/fonts/opentype/andika-new-basic
+                    install AndikaNewBasic-5.500/AndikaNewBasic-BI.ttf /app/share/fonts/opentype/andika-new-basic
+                    install -d /app/share/doc/fonts-sil-andika-new-basic
+                    install AndikaNewBasic-5.500/OFL.txt /app/share/doc/fonts-sil-andika-new-basic
+                    install AndikaNewBasic-5.500/README.txt /app/share/doc/fonts-sil-andika-new-basic
+          ## for gtklp
+          #- shared-modules/gtk2/gtk2.json
     - name: ArtOfReading
       sources:
           # This .deb contains only PNG image files with a few text files such
