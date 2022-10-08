@@ -133,6 +133,8 @@ modules:
               # Add AppStream metadata file
               install -d ${INSTALLATION_PREFIX}/share/appdata
               install -m 644 debian/bloom-beta.appdata.xml ${INSTALLATION_PREFIX}/share/appdata
+              # allow GTK2 to co-exist with mono-sil and Bloom
+              ln -s ${BLOOMLIB}/Firefox/libgtk-x11-2.0.so.0 /app/lib/mono/gac/System.Windows.Forms/4.0.0.0__b77a5c561934e089
               # Remove unwanted files
               cd ${BLOOMLIB} && rm -rf AxInterop* BloomTests* Interop* Moq* nunit* NUnit* AndikaNewBasic ffmpeg ghostscript
               find ${BLOOMLIB} -name '*.map' -print0 | xargs -0 rm -f
@@ -592,8 +594,15 @@ modules:
                     install -d /app/share/doc/fonts-sil-andika-new-basic
                     install AndikaNewBasic-5.500/OFL.txt /app/share/doc/fonts-sil-andika-new-basic
                     install AndikaNewBasic-5.500/README.txt /app/share/doc/fonts-sil-andika-new-basic
-          ## for gtklp
-          #- shared-modules/gtk2/gtk2.json
+          # for gtklp
+          - shared-modules/gtk2/gtk2.json
+          - name: gtklp
+            sources:
+              - type: archive
+                url: https://downloads.sourceforge.net/project/gtklp/gtklp/1.3.4/gtklp-1.3.4.src.tar.gz
+                sha256: be07609042595fa932034e3b2d7038cef33901ec0863fcedbb5188acb6b53bab
+              - type: patch
+                path: patches/gtklp/FixGtklpForNewGcc.patch
     - name: ArtOfReading
       sources:
           # This .deb contains only PNG image files with a few text files such
