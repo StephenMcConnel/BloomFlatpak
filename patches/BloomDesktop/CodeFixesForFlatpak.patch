@@ -244,6 +244,19 @@ index f32829110..6154ff04a 100644
  			}
  			if (!modifiedBook.IsTemplateBook)
  				modifiedBook.RemoveBlankPages(settings?.LanguagesToInclude);
+diff --git a/BloomDesktop/src/BloomExe/Publish/AudioProcessor.cs b/BloomDesktop/src/BloomExe/Publish/AudioProcessor.cs
+index 1f0121e8e..460382b68 100644
+--- a/BloomDesktop/src/BloomExe/Publish/AudioProcessor.cs
++++ b/BloomDesktop/src/BloomExe/Publish/AudioProcessor.cs
+@@ -140,7 +140,7 @@ public static bool DoesAudioExistForSegment(string bookFolderPath, string record
+ 		/// </summary>
+ 		public static string MergeAudioFiles(IEnumerable<string> mergeFiles, string combinedAudioPath)
+ 		{
+-			var ffmpeg = "/usr/bin/ffmpeg"; // standard Linux location
++			var ffmpeg = "/app/bin/ffmpeg"; // standard Linux location
+ 			if (SIL.PlatformUtilities.Platform.IsWindows)
+ 				ffmpeg = Path.Combine(BloomFileLocator.GetCodeBaseFolder(), "ffmpeg.exe");
+ 			if (RobustFile.Exists(ffmpeg))
 diff --git a/BloomDesktop/src/BloomExe/Publish/BloomLibrary/BloomLibraryUploadControl.cs b/BloomDesktop/src/BloomExe/Publish/BloomLibrary/BloomLibraryUploadControl.cs
 index 610d51222..7e563b0fd 100644
 --- a/BloomDesktop/src/BloomExe/Publish/BloomLibrary/BloomLibraryUploadControl.cs
@@ -264,6 +277,19 @@ index 610d51222..7e563b0fd 100644
  			}
  			if (RobustFile.Exists("/usr/bin/terminator")) // popular alternative
  			{
+diff --git a/BloomDesktop/src/BloomExe/Publish/Epub/EpubMaker.cs b/BloomDesktop/src/BloomExe/Publish/Epub/EpubMaker.cs
+index 84baf3d86..2bb33c777 100644
+--- a/BloomDesktop/src/BloomExe/Publish/Epub/EpubMaker.cs
++++ b/BloomDesktop/src/BloomExe/Publish/Epub/EpubMaker.cs
+@@ -841,7 +841,7 @@ private void AddAudioOverlay(HtmlDom pageDom, string pageDocName)
+ 							// A short file may have only one carriage-return separated section of output, while a very long file may
+ 							// have more sections than this.
+ 							var args = String.Format("-v quiet -stats -i \"{0}\" -f null -", path);
+-							var result = CommandLineRunner.Run("/usr/bin/ffmpeg", args, "", 20 * 10, new SIL.Progress.NullProgress());
++							var result = CommandLineRunner.Run("/app/bin/ffmpeg", args, "", 20 * 10, new SIL.Progress.NullProgress());
+ 							var output = result.ExitCode == 0 ? result.StandardError : null;
+ 							string timeString = null;
+ 							if (!string.IsNullOrEmpty(output))
 diff --git a/BloomDesktop/src/BloomExe/Publish/PDF/PdfViewer.cs b/BloomDesktop/src/BloomExe/Publish/PDF/PdfViewer.cs
 index 8c58b29f5..3d27f4e82 100644
 --- a/BloomDesktop/src/BloomExe/Publish/PDF/PdfViewer.cs
@@ -316,8 +342,21 @@ index 63cb30e97..3f7ed1a71 100644
  			}
  		}
  
+diff --git a/BloomDesktop/src/BloomExe/Utils/MiscUtils.cs b/BloomDesktop/src/BloomExe/Utils/MiscUtils.cs
+index 23c8c967a..6c331e7ba 100644
+--- a/BloomDesktop/src/BloomExe/Utils/MiscUtils.cs
++++ b/BloomDesktop/src/BloomExe/Utils/MiscUtils.cs
+@@ -233,7 +233,7 @@ public static string ColorToHtmlCode(Color color)
+ 		/// <returns></returns>
+ 		public static string FindFfmpegProgram()
+ 		{
+-			var ffmpeg = "/usr/bin/ffmpeg";     // standard Linux location
++			var ffmpeg = "/app/bin/ffmpeg";     // standard Linux location
+ 			if (SIL.PlatformUtilities.Platform.IsWindows)
+ 				ffmpeg = Path.Combine(BloomFileLocator.GetCodeBaseFolder(), "ffmpeg.exe");
+ 			return RobustFile.Exists(ffmpeg) ? ffmpeg : string.Empty;
 diff --git a/BloomDesktop/src/BloomExe/web/controllers/AudioSegmentationApi.cs b/BloomDesktop/src/BloomExe/web/controllers/AudioSegmentationApi.cs
-index 32fda207a..a5aff9e8e 100644
+index 32fda207a..eda12ba56 100644
 --- a/BloomDesktop/src/BloomExe/web/controllers/AudioSegmentationApi.cs
 +++ b/BloomDesktop/src/BloomExe/web/controllers/AudioSegmentationApi.cs
 @@ -111,7 +111,9 @@ public bool AreAutoSegmentDependenciesMet(out string message)
@@ -331,3 +370,26 @@ index 32fda207a..a5aff9e8e 100644
  			{
  				// Ubuntu 20.04 installs python3 by default without any /usr/bin/python, and python3-aeneas is
  				// installed instead of python-aeneas (which depends on python2.7).
+@@ -433,11 +435,12 @@ private string GetBestSupportedLanguage(string requestedLangCode, out string std
+ 
+ 				return "eo";
+ 			}
++			string workingDir = Platform.IsLinux ? "/tmp" : kWorkingDirectory;
+ 
+ 			// First try the requested langauge directly.
+ 			// (We need to test eSpeak directly instead of Aeneas because when using TTS overrides, there's no Aeneas error message that tells us if the language is unsupported.
+ 			// Therefore, we explicitly test if the language is supported by the dependency (eSpeak) before getting started.
+-			if (!DoesCommandCauseError($"espeak -v {requestedLangCode} -q \"hello world\"", kWorkingDirectory, out stdOut, out stdErr))
++			if (!DoesCommandCauseError($"espeak -v {requestedLangCode} -q \"hello world\"", workingDir, out stdOut, out stdErr))
+ 			{
+ 				return requestedLangCode;
+ 			}
+@@ -469,7 +472,7 @@ private string GetBestSupportedLanguage(string requestedLangCode, out string std
+ 			string langCode = null;
+ 			foreach (var langCodeToTry in potentialFallbackLangs)
+ 			{
+-				if (!DoesCommandCauseError($"espeak -v {langCodeToTry} -q \"hello world\"", kWorkingDirectory, out stdOut, out stdErr))
++				if (!DoesCommandCauseError($"espeak -v {langCodeToTry} -q \"hello world\"", workingDir, out stdOut, out stdErr))
+ 				{
+ 					langCode = langCodeToTry;
+ 					break;

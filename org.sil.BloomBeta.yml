@@ -30,13 +30,6 @@ sdk-extensions:
     - org.freedesktop.Sdk.Extension.mono6
 writable-sdk: true # Required to install msbuild for building libpalaso and geckofx
 
-# maybe someday, build a custom ffmpeg with just what we want
-add-extensions:
-  org.freedesktop.Platform.ffmpeg-full:
-    directory: lib/ffmpeg
-    version: '21.08'
-    add-ld-path: .
-
 finish-args:
     - --socket=x11
     - --share=ipc
@@ -51,8 +44,8 @@ finish-args:
     # show the user, such as creating PDFs, ePUBs, or BloomPub ebooks.  Use the
     # same /tmp as the host, so the host programs can find the files.
     - --filesystem=/tmp
-    # libGL needs this
-    - --device=dri
+    # webcam apparently needs this
+    - --device=all
 rename-desktop-file: bloom-beta.desktop
 rename-appdata-file: bloom-beta.appdata.xml
 command: bloom-beta
@@ -159,8 +152,9 @@ modules:
               find ${BLOOMLIB} -name 'PangoSharp.dll' -print0 | xargs -0 rm -f
               # make up for deficient mono mapping
               ln -s /usr/lib/x86_64-linux-gnu/libdl.so.2 ${INSTALLATION_PREFIX}/lib/libdl.so
-              # make room for the ffmpeg-full extension
-              install -d ${INSTALLATION_PREFIX}/lib/ffmpeg
+              # ensure that "python" points to /usr/bin/python3
+              rm -f /app/bin/python
+
       cleanup:
           - "/include"
           - "/lib/*/include"
@@ -603,6 +597,67 @@ modules:
                 sha256: be07609042595fa932034e3b2d7038cef33901ec0863fcedbb5188acb6b53bab
               - type: patch
                 path: patches/gtklp/FixGtklpForNewGcc.patch
+          # for ffmpeg
+          - name: libx264
+            config-opts:
+              - --enable-shared
+              - --disable-cli
+              - --enable-static
+              - --disable-cli
+              - --disable-gpl
+              - --disable-opencl
+              - --disable-avs
+              - --disable-swscale
+              - --disable-lavf
+              - --disable-ffms
+              - --disable-gpac
+              - --disable-lsmash
+              - --enable-lto
+            sources:
+              - type: git
+                url: https://code.videolan.org/videolan/x264.git
+                commit: baee400fa9ced6f5481a728138fed6e867b0ff7f
+          - name: ffmpeg
+            config-opts:
+              - --disable-postproc
+              - --enable-avcodec
+              - --enable-avdevice
+              - --enable-avformat
+              - --enable-avfilter
+              - --enable-swresample
+              - --enable-swscale
+              - --disable-encoders
+              - --enable-encoder=rawvideo,libx264,libvpx_vp8,aac,libmp3lame,h263,pcm_s16be,pcm_s24be,pcm_s16le,pcm_s24le,pcm_s32le,pcm_u8
+              - --disable-hwaccels
+              - --disable-parsers
+              - --enable-parser=h264,vp8,mpegaudio
+              - --disable-protocols
+              - --enable-protocol=file,concat
+              - --disable-muxers
+              - --enable-muxer=rawvideo,mp4,mp3,tgp,pcm_s16be,pcm_s16le,wav
+              - --disable-bsfs
+              - --disable-filters
+              - --enable-filter=scale,adelay,afade,amix,aresample,volume
+              - --disable-indevs
+              - --enable-indev=gdigrab
+              - --disable-outdevs
+              - --disable-autodetect
+              - --enable-libx264
+              - --enable-libvorbis
+              - --enable-libvpx
+              - --enable-libmp3lame
+              - --disable-programs
+              - --enable-ffmpeg
+              - --disable-doc
+              - --disable-htmlpages
+              - --disable-manpages
+              - --disable-podpages
+              - --disable-txtpages
+              - --enable-gpl
+            sources:
+              - type: archive
+                url: https://ffmpeg.org/releases/ffmpeg-5.1.2.tar.xz
+                sha256: 619e706d662c8420859832ddc259cd4d4096a48a2ce1eefd052db9e440eef3dc
     - name: ArtOfReading
       sources:
           # This .deb contains only PNG image files with a few text files such
