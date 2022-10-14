@@ -1,7 +1,7 @@
-diff --git a/BloomDesktop/lib/BloomPdfMaker.sh b/BloomDesktop/lib/BloomPdfMaker.sh
+diff --git a/lib/BloomPdfMaker.sh b/lib/BloomPdfMaker.sh
 index 446fe59d6..7ec718ac7 100755
---- a/BloomDesktop/lib/BloomPdfMaker.sh
-+++ b/BloomDesktop/lib/BloomPdfMaker.sh
+--- a/lib/BloomPdfMaker.sh
++++ b/lib/BloomPdfMaker.sh
 @@ -7,7 +7,7 @@
  LIB="$(dirname $0)"
  BASE="$(dirname $LIB)"
@@ -27,10 +27,10 @@ index 446fe59d6..7ec718ac7 100755
 +echo BloomPdfMaker.sh: LIB=$LIB, BASE=$BASE, SHARE=$SHARE, RUNMODE=$RUNMODE, MONO_PREFIX=$MONO_PREFIX
 +
 +exec "$MONO_PREFIX/bin/mono" --debug "$LIB/BloomPdfMaker.exe" "$@"
-diff --git a/BloomDesktop/src/BloomExe/FatalExceptionHandler.cs b/BloomDesktop/src/BloomExe/FatalExceptionHandler.cs
+diff --git a/src/BloomExe/FatalExceptionHandler.cs b/src/BloomExe/FatalExceptionHandler.cs
 index d1905d6eb..0e52b40da 100644
---- a/BloomDesktop/src/BloomExe/FatalExceptionHandler.cs
-+++ b/BloomDesktop/src/BloomExe/FatalExceptionHandler.cs
+--- a/src/BloomExe/FatalExceptionHandler.cs
++++ b/src/BloomExe/FatalExceptionHandler.cs
 @@ -72,6 +72,7 @@ protected void HandleTopLevelError(object sender, ThreadExceptionEventArgs e)
  			if (!GetShouldHandleException(sender, e.Exception))
  				return;
@@ -47,10 +47,10 @@ index d1905d6eb..0e52b40da 100644
  			if (UseFallback)
  			{
  				if (Program.RunningHarvesterMode)
-diff --git a/BloomDesktop/src/BloomExe/FontProcessing/FontMetadata.cs b/BloomDesktop/src/BloomExe/FontProcessing/FontMetadata.cs
+diff --git a/src/BloomExe/FontProcessing/FontMetadata.cs b/src/BloomExe/FontProcessing/FontMetadata.cs
 index cbe1c037b..b1f1b598b 100644
---- a/BloomDesktop/src/BloomExe/FontProcessing/FontMetadata.cs
-+++ b/BloomDesktop/src/BloomExe/FontProcessing/FontMetadata.cs
+--- a/src/BloomExe/FontProcessing/FontMetadata.cs
++++ b/src/BloomExe/FontProcessing/FontMetadata.cs
 @@ -43,8 +43,8 @@ public class FontMetadata
  		/// On Window, we can use System.Windows.Media (which provides the GlyphTypeface class) to
  		/// provide all the font metadata information.
@@ -71,10 +71,10 @@ index cbe1c037b..b1f1b598b 100644
  						Arguments = $"-i \"{group.Normal}\"",
  						UseShellExecute = false,
  						CreateNoWindow = true,
-diff --git a/BloomDesktop/src/BloomExe/HelpLauncher.cs b/BloomDesktop/src/BloomExe/HelpLauncher.cs
+diff --git a/src/BloomExe/HelpLauncher.cs b/src/BloomExe/HelpLauncher.cs
 index 02a8d6878..262018d0e 100644
---- a/BloomDesktop/src/BloomExe/HelpLauncher.cs
-+++ b/BloomDesktop/src/BloomExe/HelpLauncher.cs
+--- a/src/BloomExe/HelpLauncher.cs
++++ b/src/BloomExe/HelpLauncher.cs
 @@ -79,7 +79,7 @@ private static void ShowHelpWithTopic(Control parent, string helpFile, string he
  			{
  				arguments = String.Format("-showPage \"{0}\" \"{1}\"", helpTopic, helpFile);
@@ -84,10 +84,10 @@ index 02a8d6878..262018d0e 100644
  			{
  				// According to the xchm developer, something like this should work:
  				// xchm file:jdk150.chm#xchm:/jdk150/api/java/applet/package-summary.html
-diff --git a/BloomDesktop/src/BloomExe/ImageProcessing/ImageUtils.cs b/BloomDesktop/src/BloomExe/ImageProcessing/ImageUtils.cs
+diff --git a/src/BloomExe/ImageProcessing/ImageUtils.cs b/src/BloomExe/ImageProcessing/ImageUtils.cs
 index 6a4e11978..da9d53174 100644
---- a/BloomDesktop/src/BloomExe/ImageProcessing/ImageUtils.cs
-+++ b/BloomDesktop/src/BloomExe/ImageProcessing/ImageUtils.cs
+--- a/src/BloomExe/ImageProcessing/ImageUtils.cs
++++ b/src/BloomExe/ImageProcessing/ImageUtils.cs
 @@ -881,7 +881,7 @@ private static string GetGraphicsMagickPath()
  		{
  			if (Platform.IsLinux)
@@ -97,10 +97,10 @@ index 6a4e11978..da9d53174 100644
  			}
  			else
  			{
-diff --git a/BloomDesktop/src/BloomExe/NonFatalProblem.cs b/BloomDesktop/src/BloomExe/NonFatalProblem.cs
+diff --git a/src/BloomExe/NonFatalProblem.cs b/src/BloomExe/NonFatalProblem.cs
 index f3464543f..e1bf73a84 100644
---- a/BloomDesktop/src/BloomExe/NonFatalProblem.cs
-+++ b/BloomDesktop/src/BloomExe/NonFatalProblem.cs
+--- a/src/BloomExe/NonFatalProblem.cs
++++ b/src/BloomExe/NonFatalProblem.cs
 @@ -35,6 +35,7 @@ public class NonFatalProblem
  			Exception exception = null, bool showSendReport = true, bool isShortMessagePreEncoded = false, bool skipSentryReport = false, bool showRequestDetails = false,
  			string[] additionalFilesToInclude = null)
@@ -109,10 +109,10 @@ index f3464543f..e1bf73a84 100644
  			var originalException = exception;
  			s_expectedByUnitTest?.ProblemWasReported();
  
-diff --git a/BloomDesktop/src/BloomExe/Program.cs b/BloomDesktop/src/BloomExe/Program.cs
+diff --git a/src/BloomExe/Program.cs b/src/BloomExe/Program.cs
 index c89e78aa0..e370beb55 100644
---- a/BloomDesktop/src/BloomExe/Program.cs
-+++ b/BloomDesktop/src/BloomExe/Program.cs
+--- a/src/BloomExe/Program.cs
++++ b/src/BloomExe/Program.cs
 @@ -307,7 +307,7 @@ static int Main(string[] args1)
  								using (var projectContext =
  									_applicationContainer.CreateProjectContext(fakeCollectionPath, true))
@@ -211,10 +211,10 @@ index c89e78aa0..e370beb55 100644
  		/// <summary>
  		/// Sets up different analytics channels depending on Debug or not.
  		/// Also determines whether or not Registration should occur.
-diff --git a/BloomDesktop/src/BloomExe/Publish/Android/BloomPubMaker.cs b/BloomDesktop/src/BloomExe/Publish/Android/BloomPubMaker.cs
+diff --git a/src/BloomExe/Publish/Android/BloomPubMaker.cs b/src/BloomExe/Publish/Android/BloomPubMaker.cs
 index f32829110..6154ff04a 100644
---- a/BloomDesktop/src/BloomExe/Publish/Android/BloomPubMaker.cs
-+++ b/BloomDesktop/src/BloomExe/Publish/Android/BloomPubMaker.cs
+--- a/src/BloomExe/Publish/Android/BloomPubMaker.cs
++++ b/src/BloomExe/Publish/Android/BloomPubMaker.cs
 @@ -33,6 +33,8 @@ public static class BloomPubMaker
  
  		public static Control ControlForInvoke { get; set; }
@@ -244,10 +244,10 @@ index f32829110..6154ff04a 100644
  			}
  			if (!modifiedBook.IsTemplateBook)
  				modifiedBook.RemoveBlankPages(settings?.LanguagesToInclude);
-diff --git a/BloomDesktop/src/BloomExe/Publish/AudioProcessor.cs b/BloomDesktop/src/BloomExe/Publish/AudioProcessor.cs
+diff --git a/src/BloomExe/Publish/AudioProcessor.cs b/src/BloomExe/Publish/AudioProcessor.cs
 index 1f0121e8e..460382b68 100644
---- a/BloomDesktop/src/BloomExe/Publish/AudioProcessor.cs
-+++ b/BloomDesktop/src/BloomExe/Publish/AudioProcessor.cs
+--- a/src/BloomExe/Publish/AudioProcessor.cs
++++ b/src/BloomExe/Publish/AudioProcessor.cs
 @@ -140,7 +140,7 @@ public static bool DoesAudioExistForSegment(string bookFolderPath, string record
  		/// </summary>
  		public static string MergeAudioFiles(IEnumerable<string> mergeFiles, string combinedAudioPath)
@@ -257,10 +257,10 @@ index 1f0121e8e..460382b68 100644
  			if (SIL.PlatformUtilities.Platform.IsWindows)
  				ffmpeg = Path.Combine(BloomFileLocator.GetCodeBaseFolder(), "ffmpeg.exe");
  			if (RobustFile.Exists(ffmpeg))
-diff --git a/BloomDesktop/src/BloomExe/Publish/BloomLibrary/BloomLibraryUploadControl.cs b/BloomDesktop/src/BloomExe/Publish/BloomLibrary/BloomLibraryUploadControl.cs
+diff --git a/src/BloomExe/Publish/BloomLibrary/BloomLibraryUploadControl.cs b/src/BloomExe/Publish/BloomLibrary/BloomLibraryUploadControl.cs
 index 610d51222..7e563b0fd 100644
---- a/BloomDesktop/src/BloomExe/Publish/BloomLibrary/BloomLibraryUploadControl.cs
-+++ b/BloomDesktop/src/BloomExe/Publish/BloomLibrary/BloomLibraryUploadControl.cs
+--- a/src/BloomExe/Publish/BloomLibrary/BloomLibraryUploadControl.cs
++++ b/src/BloomExe/Publish/BloomLibrary/BloomLibraryUploadControl.cs
 @@ -933,11 +933,11 @@ private string GetLinuxTerminalProgramAndAdjustCommand(ref string command)
  		{
  			// See https://askubuntu.com/questions/484993/run-command-on-anothernew-terminal-window
@@ -277,10 +277,10 @@ index 610d51222..7e563b0fd 100644
  			}
  			if (RobustFile.Exists("/usr/bin/terminator")) // popular alternative
  			{
-diff --git a/BloomDesktop/src/BloomExe/Publish/Epub/EpubMaker.cs b/BloomDesktop/src/BloomExe/Publish/Epub/EpubMaker.cs
+diff --git a/src/BloomExe/Publish/Epub/EpubMaker.cs b/src/BloomExe/Publish/Epub/EpubMaker.cs
 index 84baf3d86..2bb33c777 100644
---- a/BloomDesktop/src/BloomExe/Publish/Epub/EpubMaker.cs
-+++ b/BloomDesktop/src/BloomExe/Publish/Epub/EpubMaker.cs
+--- a/src/BloomExe/Publish/Epub/EpubMaker.cs
++++ b/src/BloomExe/Publish/Epub/EpubMaker.cs
 @@ -841,7 +841,7 @@ private void AddAudioOverlay(HtmlDom pageDom, string pageDocName)
  							// A short file may have only one carriage-return separated section of output, while a very long file may
  							// have more sections than this.
@@ -290,10 +290,10 @@ index 84baf3d86..2bb33c777 100644
  							var output = result.ExitCode == 0 ? result.StandardError : null;
  							string timeString = null;
  							if (!string.IsNullOrEmpty(output))
-diff --git a/BloomDesktop/src/BloomExe/Publish/PDF/PdfViewer.cs b/BloomDesktop/src/BloomExe/Publish/PDF/PdfViewer.cs
+diff --git a/src/BloomExe/Publish/PDF/PdfViewer.cs b/src/BloomExe/Publish/PDF/PdfViewer.cs
 index 8c58b29f5..3d27f4e82 100644
---- a/BloomDesktop/src/BloomExe/Publish/PDF/PdfViewer.cs
-+++ b/BloomDesktop/src/BloomExe/Publish/PDF/PdfViewer.cs
+--- a/src/BloomExe/Publish/PDF/PdfViewer.cs
++++ b/src/BloomExe/Publish/PDF/PdfViewer.cs
 @@ -233,7 +233,7 @@ private bool TryGhostcriptPrint()
  			// setup in Ubuntu.  It handles PDF automatically.  gtklp is a graphical
  			// front end to the printer service that allows the user to specify the
@@ -313,10 +313,10 @@ index 8c58b29f5..3d27f4e82 100644
  				}
  			}
  		}
-diff --git a/BloomDesktop/src/BloomExe/Publish/PDF/ProcessPdfWithGhostscript.cs b/BloomDesktop/src/BloomExe/Publish/PDF/ProcessPdfWithGhostscript.cs
+diff --git a/src/BloomExe/Publish/PDF/ProcessPdfWithGhostscript.cs b/src/BloomExe/Publish/PDF/ProcessPdfWithGhostscript.cs
 index f687a8604..1b9719144 100644
---- a/BloomDesktop/src/BloomExe/Publish/PDF/ProcessPdfWithGhostscript.cs
-+++ b/BloomDesktop/src/BloomExe/Publish/PDF/ProcessPdfWithGhostscript.cs
+--- a/src/BloomExe/Publish/PDF/ProcessPdfWithGhostscript.cs
++++ b/src/BloomExe/Publish/PDF/ProcessPdfWithGhostscript.cs
 @@ -47,7 +47,7 @@ public void ProcessPdfFile(string inputFile, string outputFile, bool removeEvenP
  		{
  			_inputPdfPath = inputFile;
@@ -326,10 +326,10 @@ index f687a8604..1b9719144 100644
  			if (SIL.PlatformUtilities.Platform.IsWindows)
  				exePath = FindGhostcriptOnWindows();
  			if (!String.IsNullOrWhiteSpace(exePath) && File.Exists(exePath))
-diff --git a/BloomDesktop/src/BloomExe/Publish/PublishModel.cs b/BloomDesktop/src/BloomExe/Publish/PublishModel.cs
+diff --git a/src/BloomExe/Publish/PublishModel.cs b/src/BloomExe/Publish/PublishModel.cs
 index 63cb30e97..3f7ed1a71 100644
---- a/BloomDesktop/src/BloomExe/Publish/PublishModel.cs
-+++ b/BloomDesktop/src/BloomExe/Publish/PublishModel.cs
+--- a/src/BloomExe/Publish/PublishModel.cs
++++ b/src/BloomExe/Publish/PublishModel.cs
 @@ -294,8 +294,9 @@ internal DisplayModes DisplayMode
  			set
  			{
@@ -342,10 +342,10 @@ index 63cb30e97..3f7ed1a71 100644
  			}
  		}
  
-diff --git a/BloomDesktop/src/BloomExe/Utils/MiscUtils.cs b/BloomDesktop/src/BloomExe/Utils/MiscUtils.cs
+diff --git a/src/BloomExe/Utils/MiscUtils.cs b/src/BloomExe/Utils/MiscUtils.cs
 index 23c8c967a..6c331e7ba 100644
---- a/BloomDesktop/src/BloomExe/Utils/MiscUtils.cs
-+++ b/BloomDesktop/src/BloomExe/Utils/MiscUtils.cs
+--- a/src/BloomExe/Utils/MiscUtils.cs
++++ b/src/BloomExe/Utils/MiscUtils.cs
 @@ -233,7 +233,7 @@ public static string ColorToHtmlCode(Color color)
  		/// <returns></returns>
  		public static string FindFfmpegProgram()
@@ -355,10 +355,10 @@ index 23c8c967a..6c331e7ba 100644
  			if (SIL.PlatformUtilities.Platform.IsWindows)
  				ffmpeg = Path.Combine(BloomFileLocator.GetCodeBaseFolder(), "ffmpeg.exe");
  			return RobustFile.Exists(ffmpeg) ? ffmpeg : string.Empty;
-diff --git a/BloomDesktop/src/BloomExe/web/controllers/AudioSegmentationApi.cs b/BloomDesktop/src/BloomExe/web/controllers/AudioSegmentationApi.cs
+diff --git a/src/BloomExe/web/controllers/AudioSegmentationApi.cs b/src/BloomExe/web/controllers/AudioSegmentationApi.cs
 index 32fda207a..eda12ba56 100644
---- a/BloomDesktop/src/BloomExe/web/controllers/AudioSegmentationApi.cs
-+++ b/BloomDesktop/src/BloomExe/web/controllers/AudioSegmentationApi.cs
+--- a/src/BloomExe/web/controllers/AudioSegmentationApi.cs
++++ b/src/BloomExe/web/controllers/AudioSegmentationApi.cs
 @@ -111,7 +111,9 @@ public bool AreAutoSegmentDependenciesMet(out string message)
  			string workingDir = Platform.IsLinux ? "/tmp" : kWorkingDirectory;
  			string stdout;
