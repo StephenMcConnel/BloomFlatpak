@@ -1,7 +1,7 @@
-diff --git a/BloomDesktop/Bloom.sln b/BloomDesktop/Bloom.sln
+diff --git a/Bloom.sln b/Bloom.sln
 index c920c20d3..2ffe81734 100644
---- a/BloomDesktop/Bloom.sln
-+++ b/BloomDesktop/Bloom.sln
+--- a/Bloom.sln
++++ b/Bloom.sln
 @@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.26430.14
  MinimumVisualStudioVersion = 10.0.40219.1
  Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloomExe", "src\BloomExe\BloomExe.csproj", "{304D5612-167C-4725-AF27-B9F2BB788B57}"
@@ -30,10 +30,10 @@ index c920c20d3..2ffe81734 100644
  	EndGlobalSection
  	GlobalSection(SolutionProperties) = preSolution
  		HideSolutionNode = FALSE
-diff --git a/BloomDesktop/debian/bloom-beta b/BloomDesktop/debian/bloom-beta
+diff --git a/debian/bloom-beta b/debian/bloom-beta
 index 3e6be8764..2e6af4775 100755
---- a/BloomDesktop/debian/bloom-beta
-+++ b/BloomDesktop/debian/bloom-beta
+--- a/debian/bloom-beta
++++ b/debian/bloom-beta
 @@ -1,11 +1,21 @@
  #!/bin/sh
  
@@ -59,10 +59,10 @@ index 3e6be8764..2e6af4775 100755
 +# Without this sync, communication with BloomLibrary (or at least S3) will fail.
 +[ ! -d ~/.var/app/org.sil.BloomBeta/config/.mono/certs ] && /app/bin/mono /app/lib/mono/4.5/cert-sync.exe --user /app/share/ca-certificates/ca-certificates.crt
 +exec /app/bin/mono --debug "$LIB"/Bloom.exe "$@"
-diff --git a/BloomDesktop/debian/bloom-beta.appdata.xml b/BloomDesktop/debian/bloom-beta.appdata.xml
+diff --git a/debian/bloom-beta.appdata.xml b/debian/bloom-beta.appdata.xml
 index 831ad08a1..c2d3cb8fb 100644
---- a/BloomDesktop/debian/bloom-beta.appdata.xml
-+++ b/BloomDesktop/debian/bloom-beta.appdata.xml
+--- a/debian/bloom-beta.appdata.xml
++++ b/debian/bloom-beta.appdata.xml
 @@ -1,7 +1,7 @@
  <?xml version="1.0" encoding="UTF-8"?>
  <!-- Copyright 2022 SIL International -->
@@ -72,10 +72,10 @@ index 831ad08a1..c2d3cb8fb 100644
    <launchable type="desktop-id">bloom-beta.desktop</launchable>
    <metadata_license>MIT</metadata_license>
    <project_license>MIT</project_license>
-diff --git a/BloomDesktop/environ b/BloomDesktop/environ
+diff --git a/environ b/environ
 index 44b1f73b2..1d560153b 100644
---- a/BloomDesktop/environ
-+++ b/BloomDesktop/environ
+--- a/environ
++++ b/environ
 @@ -6,9 +6,9 @@
  # Note that this file is intended to be "sourced", not "executed".
  
@@ -138,10 +138,10 @@ index 44b1f73b2..1d560153b 100644
 +if [ "$DEBUG_BLOOM" = "true" ]; then
 +	env | sort
 +fi
-diff --git a/BloomDesktop/environ-xulrunner b/BloomDesktop/environ-xulrunner
+diff --git a/environ-xulrunner b/environ-xulrunner
 index 91b1fa261..808a03c23 100644
---- a/BloomDesktop/environ-xulrunner
-+++ b/BloomDesktop/environ-xulrunner
+--- a/environ-xulrunner
++++ b/environ-xulrunner
 @@ -2,8 +2,8 @@
  # for them.  Note that this script lives in /usr/share/bloom-desktop* on user machines,
  # but on the root of the repository on developer machines.  This requires a bit of
@@ -153,10 +153,10 @@ index 91b1fa261..808a03c23 100644
    export XULRUNNER=$(dirname $(find $tmpbasedir -name libxul.so))
  else
    export XULRUNNER=$(dirname $(find ${tmpbasedir}/output/${BUILD} -name libxul.so))
-diff --git a/BloomDesktop/src/BloomBrowserUI/gulpfile.js b/BloomDesktop/src/BloomBrowserUI/gulpfile.js
+diff --git a/src/BloomBrowserUI/gulpfile.js b/src/BloomBrowserUI/gulpfile.js
 index 07bd54753..7a9e555f3 100644
---- a/BloomDesktop/src/BloomBrowserUI/gulpfile.js
-+++ b/BloomDesktop/src/BloomBrowserUI/gulpfile.js
+--- a/src/BloomBrowserUI/gulpfile.js
++++ b/src/BloomBrowserUI/gulpfile.js
 @@ -102,7 +102,9 @@ var paths = {
  var allXliffFiles = globule.find(paths.xliff);
  // Check for the existence of the SIL mono, which flags we're on Linux
@@ -194,10 +194,10 @@ index 07bd54753..7a9e555f3 100644
                  else
                      cmd =
                          "..\\..\\lib\\dotnet\\HtmlXliff.exe --extract --preserve";
-diff --git a/BloomDesktop/src/BloomExe/BloomExe.csproj b/BloomDesktop/src/BloomExe/BloomExe.csproj
+diff --git a/src/BloomExe/BloomExe.csproj b/src/BloomExe/BloomExe.csproj
 index d8776bdb4..2547c5fd4 100644
---- a/BloomDesktop/src/BloomExe/BloomExe.csproj
-+++ b/BloomDesktop/src/BloomExe/BloomExe.csproj
+--- a/src/BloomExe/BloomExe.csproj
++++ b/src/BloomExe/BloomExe.csproj
 @@ -9,7 +9,7 @@
      <TargetFrameworkProfile>
      </TargetFrameworkProfile>
@@ -277,10 +277,10 @@ index d8776bdb4..2547c5fd4 100644
      <Reference Include="System.Web" />
      <Reference Include="System.Web.Extensions" />
      <Reference Include="System.Xml.Linq" />
-diff --git a/BloomDesktop/src/BloomExe/Linux/packages.config b/BloomDesktop/src/BloomExe/Linux/packages.config
+diff --git a/src/BloomExe/Linux/packages.config b/src/BloomExe/Linux/packages.config
 index c7759ecdd..bd11e88af 100644
---- a/BloomDesktop/src/BloomExe/Linux/packages.config
-+++ b/BloomDesktop/src/BloomExe/Linux/packages.config
+--- a/src/BloomExe/Linux/packages.config
++++ b/src/BloomExe/Linux/packages.config
 @@ -24,7 +24,7 @@
    <package id="JsonFx" version="2.0.1209.2802" targetFramework="net461" />
    <package id="L10NSharp" version="5.0.0-beta0088" targetFramework="net472" />
