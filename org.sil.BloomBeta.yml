@@ -46,6 +46,8 @@ finish-args:
     - --filesystem=/tmp
     # webcam apparently needs this
     - --device=all
+    # enable file saving
+    - --system-talk-name=org.freedesktop.FileManager1
 rename-desktop-file: bloom-beta.desktop
 rename-appdata-file: bloom-beta.appdata.xml
 command: bloom-beta
@@ -85,7 +87,7 @@ modules:
       sources:
           - type: git
             url: https://github.com/BloomBooks/BloomDesktop.git
-            commit: f49d04b7dce967c90ddb660f8f285191b6fa8907
+            commit: 382547ff9e33c9372a01216c82d3b5cd7536c4ac
           # Bloom nuget dependencies
           # To regenerate bloom-build-sources-nuget.yml:
           #   ./compose-nuget-sources bloom-build-sources-nuget.yml nuget_packages ./extra/buildPackages.config
@@ -519,6 +521,35 @@ modules:
                 sha256: be07609042595fa932034e3b2d7038cef33901ec0863fcedbb5188acb6b53bab
               - type: patch
                 path: patches/gtklp/FixGtklpForNewGcc.patch
+          # for xterm (used by bulk upload)
+          - name: xterm
+            sources:
+              - type: git
+                url: https://github.com/ThomasDickey/xterm-snapshots.git
+                tag: xterm-364
+                commit: 6b07755324d62a64cfcf11ef750670c2ede583ca
+                x-checker-data:
+                  type: anitya
+                  project-id: 5272
+                  tag-template: xterm-$version
+                  is-main-source: true
+            modules:
+              - name: libXaw
+                sources: &libXaw-sources
+                  - type: archive
+                    url: https://xorg.freedesktop.org/releases/individual/lib/libXaw-1.0.12.tar.bz2
+                    sha256: 96fc314874fce9979556321d1d6ee00b5baf32fb333b7278853b4983bc3cdbf6
+                    x-checker-data:
+                      type: anitya
+                      project-id: 1766
+                      url-template: https://xorg.freedesktop.org/releases/individual/lib/libXaw-$version.tar.bz2
+              - name: libXaw-32bit
+                sources: *libXaw-sources
+              - name: ncurses
+                sources:
+                  - type: archive
+                    url: https://invisible-mirror.net/archives/ncurses/current/ncurses-6.3-20220827.tgz
+                    sha256: "e9daea489c50be3c325db8d49891e412a75c64aa0cfb3252d0b3d8f02529b748"
           # for ffmpeg
           - name: libx264
             config-opts:

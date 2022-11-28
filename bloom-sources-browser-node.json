@@ -4306,9 +4306,9 @@
     },
     {
         "type": "file",
-        "url": "https://registry.yarnpkg.com/bloom-player/-/bloom-player-2.1.9.tgz#dc3118597fef1bd794c9b5181cc522b62c647eb8",
-        "sha512": "055d751147d61ef74dadb138e294e5c5df406160cec0de284c985542f384a79bb259b411376595d4fb05ee4204ff15fb3f43bb5fc5a7b9e50c7c5b5019faaa84",
-        "dest-filename": "bloom-player-2.1.9.tgz",
+        "url": "https://registry.yarnpkg.com/bloom-player/-/bloom-player-2.1.18.tgz#b9eb417516e63892cb1811551995dcb7fdc788da",
+        "sha512": "e1979ba0ff6bcc99948777334b5d67ad6482895d00c34ffb2c3bd357d9bb2024f2a435aff25c59f25bf9ea9d7334770f944a4860a01e401bfbdd1ffbd9f7ef12",
+        "dest-filename": "bloom-player-2.1.18.tgz",
         "dest": "flatpak-node/yarn-mirror"
     },
     {
