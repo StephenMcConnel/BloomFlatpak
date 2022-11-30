@@ -23,6 +23,7 @@
 app-id: org.sil.BloomBeta
 
 runtime: org.gnome.Platform
+# This appears to be the last runtime version that Bloom will run on.
 runtime-version: "42"
 sdk: org.gnome.Sdk
 sdk-extensions:
@@ -87,7 +88,7 @@ modules:
       sources:
           - type: git
             url: https://github.com/BloomBooks/BloomDesktop.git
-            commit: 382547ff9e33c9372a01216c82d3b5cd7536c4ac
+            commit: 279e80dae40e11c3d883e5ea1ce0b41939e578d3
           # Bloom nuget dependencies
           # To regenerate bloom-build-sources-nuget.yml:
           #   ./compose-nuget-sources bloom-build-sources-nuget.yml nuget_packages ./extra/buildPackages.config
@@ -580,7 +581,7 @@ modules:
               - --enable-swresample
               - --enable-swscale
               - --disable-encoders
-              - --enable-encoder=rawvideo,libx264,libvpx_vp8,aac,libmp3lame,h263,pcm_s16be,pcm_s24be,pcm_s16le,pcm_s24le,pcm_s32le,pcm_u8
+              - --enable-encoder=rawvideo,libx264,libvpx_vp8,aac,libmp3lame,h263,pcm_s16be,pcm_s24be,pcm_s16le,pcm_s24le,pcm_s32le,pcm_u8,null
               - --disable-hwaccels
               - --disable-parsers
               - --enable-parser=h264,vp8,mpegaudio

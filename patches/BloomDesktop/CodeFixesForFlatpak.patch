@@ -110,7 +110,7 @@ index f3464543f..e1bf73a84 100644
  			s_expectedByUnitTest?.ProblemWasReported();
  
 diff --git a/src/BloomExe/Program.cs b/src/BloomExe/Program.cs
-index c89e78aa0..e370beb55 100644
+index c89e78aa0..c4990c89a 100644
 --- a/src/BloomExe/Program.cs
 +++ b/src/BloomExe/Program.cs
 @@ -307,7 +307,7 @@ static int Main(string[] args1)
@@ -211,6 +211,15 @@ index c89e78aa0..e370beb55 100644
  		/// <summary>
  		/// Sets up different analytics channels depending on Debug or not.
  		/// Also determines whether or not Registration should occur.
+@@ -641,7 +696,7 @@ public static void RestartBloom(bool hardExit, string args = null)
+ 				{
+ 					// This is needed until the day comes (if it ever does) when we can use the
+ 					// system mono on Linux.
+-					program = "/opt/mono5-sil/bin/mono";
++					program = "/app/bin/mono";
+ 					if (args == null)
+ 						args = "\"" + Application.ExecutablePath + "\"";
+ 					else
 diff --git a/src/BloomExe/Publish/Android/BloomPubMaker.cs b/src/BloomExe/Publish/Android/BloomPubMaker.cs
 index f32829110..6154ff04a 100644
 --- a/src/BloomExe/Publish/Android/BloomPubMaker.cs
@@ -258,10 +267,19 @@ index 1f0121e8e..460382b68 100644
  				ffmpeg = Path.Combine(BloomFileLocator.GetCodeBaseFolder(), "ffmpeg.exe");
  			if (RobustFile.Exists(ffmpeg))
 diff --git a/src/BloomExe/Publish/BloomLibrary/BloomLibraryUploadControl.cs b/src/BloomExe/Publish/BloomLibrary/BloomLibraryUploadControl.cs
-index 610d51222..7e563b0fd 100644
+index abf517e50..1b08b1789 100644
 --- a/src/BloomExe/Publish/BloomLibrary/BloomLibraryUploadControl.cs
 +++ b/src/BloomExe/Publish/BloomLibrary/BloomLibraryUploadControl.cs
-@@ -933,11 +933,11 @@ private string GetLinuxTerminalProgramAndAdjustCommand(ref string command)
+@@ -879,7 +879,7 @@ private void BulkUpload(string rootFolderPath)
+ 			var bloom = Application.ExecutablePath;
+ 			var command = $"\"{bloom}\" upload \"{rootFolderPath}\" -u {_userId.Text} -d {target}";
+ 			if (SIL.PlatformUtilities.Platform.IsLinux)
+-				command = $"/opt/mono5-sil/bin/mono {command}";
++				command = $"/app/bin/mono {command}";
+ 
+ 			ProcessStartInfo startInfo;
+ 			if (SIL.PlatformUtilities.Platform.IsWindows)
+@@ -947,29 +947,29 @@ private string GetLinuxTerminalProgramAndAdjustCommand(ref string command)
  		{
  			// See https://askubuntu.com/questions/484993/run-command-on-anothernew-terminal-window
  
@@ -275,8 +293,36 @@ index 610d51222..7e563b0fd 100644
 +				command = $"-- /usr/bin/bash -c \"{QuoteQuotes(command)}; read line\"";
 +				return "/app/bin/gnome-terminal";
  			}
- 			if (RobustFile.Exists("/usr/bin/terminator")) // popular alternative
+-			if (RobustFile.Exists("/usr/bin/terminator")) // popular alternative
++			if (RobustFile.Exists("/app/bin/terminator")) // popular alternative
  			{
+-				// /usr/bin/terminator -x /bin/bash -c "bloom upload \"folder\" -u user -d dest; read line"
++				// /app/bin/terminator -x /bin/bash -c "bloom upload \"folder\" -u user -d dest; read line"
+ 				command = $"-x /bin/bash -c \"{QuoteQuotes(command)}; read line\"";
+-				return "/usr/bin/terminator";
++				return "/app/bin/terminator";
+ 			}
+-			if (RobustFile.Exists("/usr/bin/xfce4-terminal"))    // standard for XFCE4 (XUbuntu)
++			if (RobustFile.Exists("/app/bin/xfce4-terminal"))    // standard for XFCE4 (XUbuntu)
+ 			{
+-				// /usr/bin/xterm -hold -x /bin/bash -c "bloom upload \"folder\" -u user -d dest"
++				// /app/bin/xterm -hold -x /bin/bash -c "bloom upload \"folder\" -u user -d dest"
+ 				command = $"-T \"Bloom upload\" --hold -x /bin/bash -c \"{QuoteQuotes(command)}\"";
+-				return "/usr/bin/xfce4-terminal";
++				return "/app/bin/xfce4-terminal";
+ 			}
+-			if (RobustFile.Exists("/usr/bin/xterm"))	// antique original (slightly better than nothing)
++			if (RobustFile.Exists("/app/bin/xterm"))	// antique original (slightly better than nothing)
+ 			{
+-				// /usr/bin/xterm -hold -x /bin/bash -c "bloom upload \"folder\" -u user -d dest"
+-				command = $"-T \"Bloom upload\" -hold -e /bin/bash -c \"{QuoteQuotes(command)}\"";
+-				return "/usr/bin/xterm";
++				// /app/bin/xterm -hold -x /bin/bash -c "bloom upload \"folder\" -u user -d dest"
++				command = $"-T \"Bloom upload\" -hold -fa 'Monospace' -fs 14 -e /bin/bash -c \"{QuoteQuotes(command)}\"";
++				return "/app/bin/xterm";
+ 			}
+ 			// Neither konsole nor qterminal will launch with Bloom.  The ones above have been tested on Wasta 20.
+ 			// symbol lookup error: /usr/lib/x86_64-linux-gnu/qt5/plugins/styles/libqgtk2style.so: undefined symbol: gtk_combo_box_entry_new
 diff --git a/src/BloomExe/Publish/Epub/EpubMaker.cs b/src/BloomExe/Publish/Epub/EpubMaker.cs
 index 84baf3d86..2bb33c777 100644
 --- a/src/BloomExe/Publish/Epub/EpubMaker.cs
